@@ -1,0 +1,36 @@
+---
+title: Sheet 2
+---
+
+
+## Assignment 1
+
+a) 
+    * Vector-based advantages: 
+      * resolution independent
+    * Vector-based disadvantages:
+      * image build-up is difficult in complex scenes
+    * Raster-based advantages:
+      * repeated image build-up independent of scene complexity
+    * Raster-based disadvantages:
+      * Moire effects due to finite number of pixels
+b) a spectral color, or a monochromatic color, is light produced by the light of single wavelength
+in the visible spectrum
+c)
+d) mach bands are an optical illusion where we perceive extra-bright and extra-dark bands near the boundary between two regions with different luminance gradients
+
+  a receptive field have usually a center-surround structure where light in the center excites a neuron, while the light in the surrounding region inhibits it, or vice versa.
+
+  Mach bands arise because these center-surround receptive fields perform a local constrast enhancement. Near a luminance edge, one receptive field may receive more excitation than inhibition, making the side look brither, or vice versa.
+e) three operations:
+i) 
+
+relation to YIQ
+
+in the YIQ model the Y channel is calculated approximately as:
+
+Y = 0.3 R + 0.6G + 0.1 B
+
+where we see that green contributes the most and blue the least. This corresponds roughly to the human perception of brightness - it is strongest around green-yellow region and weakeste in the blue region, due to S cells contributing close to nothing to the perception of brightness. 
+
+I and Q channels carry color-difference information. They do not correspond exactly to the biological opponent channels, but they similarly separate color information from brithness detail - human eye is much more sensitive to contrast than to color difference

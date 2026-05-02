@@ -7,9 +7,12 @@ book:
   date: "4/21/2026"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - 01.qmd
+    - 02.qmd
+    # - intro.qmd
+    # - summary.qmd
+    # - references.qmd
+  downloads: pdf
 
 bibliography: references.bib
 
@@ -20,6 +23,7 @@ format:
       - brand
   pdf:
     documentclass: scrreprt
+
 
 
 

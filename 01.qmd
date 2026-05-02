@@ -1,0 +1,37 @@
+---
+title: Sheet 1
+---
+
+```
+Cemile Buyukakkac
+Malte Herzog
+Igor Dimitrov
+```
+
+## Assignment 1.1
+
+a) |Pixel| = 3840 x 2160 = 829440  
+   The whole dispaly is generated in $t = \frac{1}{f} = \frac{1}{60}s$   
+   $\Rightarrow$ Generation of a single pixel can take at most:
+
+   $$t_{max} = \frac{1}{3840 \times 2160 \times 60}s \approx 2 ns$$
+
+b) Data load of 24 bits per pixel is due to three color channels Red, Green, and Blue, each 8 bit
+, i.e. 1B. Therefore there are 8 Bytes per pixel and 3840 x 2160 pixels in total. Since the display 
+is regenerated every 1/60 seconds, we have:
+
+\begin{align*}
+B &= 3B \times 3840 \times 2160 \times 60 \frac{1}{s} \\
+  &\approx 1.4 GB / s
+\end{align*}
+
+## Assignment 1.2
+
+a) There are three types of light-sensitive receptors, 
+    * S: corresponding to blue
+    * M: corresponding to green
+    * L corresponding to red
+   but the perception of color is calculated simply as superposition of three channels but rather as two channels combination of pairs of opposing colors 
+b) To focus (or zoom in this context) means to reduce the field of vision, and reducing the field of vision corresponds to a smaller solid angle. The smaller the solid angle is,  the less light arrives at the camera lens or human eye through the telescope, which makes the object appear dimmer, or not bright enough.   
+c) metamers are color pairs that look or are perceived identically to the human eye, although they emit different light spectra, because they produce the same response in the three cone types (L, M, S)
+
