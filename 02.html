@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Igor Dimitrov">
-<meta name="dcterms.date" content="2026-04-21">
 
-<title>SoSe 26 Computer Graphics Solutions</title>
+<title>SoSe 26 Computer Graphics Solutions - 2&nbsp; Sheet 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01.html" rel="next">
+<link href="./01.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +102,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sheet 2</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -112,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -124,7 +185,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02.html" class="sidebar-item-text sidebar-link">
+  <a href="./02.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sheet 2</span></span></a>
   </div>
 </li>
@@ -138,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#assignment-1" id="toc-assignment-1" class="nav-link active" data-scroll-target="#assignment-1"><span class="header-section-number">2.1</span> Assignment 1</a></li>
   </ul>
 </nav>
     </div>
@@ -147,26 +208,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">SoSe 26 Computer Graphics Solutions</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sheet 2</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Igor Dimitrov </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 21, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -176,10 +225,193 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This is a Quarto book.</p>
-<p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<section id="assignment-1" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="assignment-1"><span class="header-section-number">2.1</span> Assignment 1</h2>
+<ol type="a">
+<li><ul>
+<li>Vector-based advantages:
+<ul>
+<li>resolution independent</li>
+</ul></li>
+<li>Vector-based disadvantages:
+<ul>
+<li>image build-up is difficult in complex scenes</li>
+</ul></li>
+<li>Raster-based advantages:
+<ul>
+<li>repeated image build-up independent of scene complexity</li>
+</ul></li>
+<li>Raster-based disadvantages:
+<ul>
+<li>Moire effects due to finite number of pixels</li>
+</ul></li>
+</ul></li>
+<li>a spectral color, or a monochromatic color, is light produced by the light of single wavelength in the visible spectrum</li>
+<li></li>
+<li>mach bands are an optical illusion where we perceive extra-bright and extra-dark bands near the boundary between two regions with different luminance gradients</li>
+</ol>
+<p>a receptive field have usually a center-surround structure where light in the center excites a neuron, while the light in the surrounding region inhibits it, or vice versa.</p>
+<p>Mach bands arise because these center-surround receptive fields perform a local constrast enhancement. Near a luminance edge, one receptive field may receive more excitation than inhibition, making the side look brither, or vice versa. e) three operations: i)</p>
+<p>relation to YIQ</p>
+<p>in the YIQ model the Y channel is calculated approximately as:</p>
+<p>Y = 0.3 R + 0.6G + 0.1 B</p>
+<p>where we see that green contributes the most and blue the least. This corresponds roughly to the human perception of brightness - it is strongest around green-yellow region and weakeste in the blue region, due to S cells contributing close to nothing to the perception of brightness.</p>
+<p>I and Q channels carry color-difference information. They do not correspond exactly to the biological opponent channels, but they similarly separate color information from brithness detail - human eye is much more sensitive to contrast than to color difference</p>
+<ol start="12" type="a">
+<li>The light spectrum is given as</li>
+</ol>
+<p><span class="math display">\[
+P(\lambda) = \frac{1}{\sqrt{2\pi\sigma^2}}\text{exp}\biggl(-\frac{(\lambda - \mu)^2}{2\sigma^2}\biggr) W
+\]</span></p>
+<p>Is a Guassian / normal distribution shape:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./imgs/02/P_lambda_guassian.png" class="img-fluid figure-img"></p>
+<figcaption><span class="math inline">\(P(\lambda)\)</span></figcaption>
+</figure>
+</div>
+<p>And the color matching functions are given as:</p>
+<p><span class="math display">\[
+\bar{x}(\lambda)
+=
+1.065
+\exp\left(
+-\frac{1}{2}
+\left(
+\frac{\lambda - 595.8}{33.33}
+\right)^2
+\right)
++
+0.366
+\exp\left(
+-\frac{1}{2}
+\left(
+\frac{\lambda - 446.8}{19.44}
+\right)^2
+\right)
+\]</span></p>
+<p><span class="math display">\[
+\bar{y}(\lambda)
+=
+1.014
+\exp\left(
+-\frac{1}{2}
+\left(
+\frac{\ln \lambda - \ln 556.3}{0.075}
+\right)^2
+\right)
+\]</span></p>
+<p><span class="math display">\[
+\bar{z}(\lambda)
+=
+1.839
+\exp\left(
+-\frac{1}{2}
+\left(
+\frac{\ln \lambda - \ln 449.8}{0.051}
+\right)^2
+\right)
+\]</span></p>
+<p>which can be plotted as follows (together with a scaled version of <span class="math inline">\(P(\lambda)\)</span>):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./imgs/02/x_y_z_P.png" class="img-fluid figure-img"></p>
+<figcaption><span class="math inline">\(x, y, z\)</span></figcaption>
+</figure>
+</div>
+<p>To compute <span class="math inline">\(X, Y, Z\)</span> we compute the integrals:</p>
+<p><span class="math display">\[
+\begin{aligned}
+X &amp;= \int_{\lambda} \bar{x}(\lambda)\,P(\lambda)\,d\lambda, \\
+Y &amp;= \int_{\lambda} \bar{y}(\lambda)\,P(\lambda)\,d\lambda, \\
+Z &amp;= \int_{\lambda} \bar{z}(\lambda)\,P(\lambda)\,d\lambda.
+\end{aligned}
+\]</span></p>
+<p>We can use a symbolic or numerical mathematics software. In our case we used mathematica where we computed the integrals with the following code:</p>
+<p>First we define the functions:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode mathematica code-with-copy"><code class="sourceCode mathematica"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="ex">=</span> <span class="dv">40</span>;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ex">=</span> <span class="dv">600</span>;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">P</span><span class="op">[</span><span class="at">lambda_</span><span class="op">]</span> <span class="ex">:=</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">Sqrt</span><span class="op">[</span><span class="dv">2</span> <span class="fu">Pi</span> sigma<span class="sc">^</span><span class="dv">2</span><span class="op">]</span> <span class="fu">Exp</span><span class="op">[</span><span class="sc">-</span>(lambda <span class="sc">-</span> mu)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span> sigma<span class="sc">^</span><span class="dv">2</span>)<span class="op">]</span>;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>xbar<span class="op">[</span><span class="at">lambda_</span><span class="op">]</span> <span class="ex">:=</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1.065</span> <span class="fu">Exp</span><span class="op">[</span><span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> ((lambda <span class="sc">-</span> <span class="fl">595.8</span>)<span class="sc">/</span><span class="fl">33.33</span>)<span class="sc">^</span><span class="dv">2</span><span class="op">]</span> <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.366</span> <span class="fu">Exp</span><span class="op">[</span><span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> ((lambda <span class="sc">-</span> <span class="fl">446.8</span>)<span class="sc">/</span><span class="fl">19.44</span>)<span class="sc">^</span><span class="dv">2</span><span class="op">]</span>;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ybar<span class="op">[</span><span class="at">lambda_</span><span class="op">]</span> <span class="ex">:=</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1.014</span> <span class="fu">Exp</span><span class="op">[</span><span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> ((<span class="fu">Log</span><span class="op">[</span>lambda<span class="op">]</span> <span class="sc">-</span> <span class="fu">Log</span><span class="op">[</span><span class="fl">556.3</span><span class="op">]</span>)<span class="sc">/</span><span class="fl">0.075</span>)<span class="sc">^</span><span class="dv">2</span><span class="op">]</span>;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>zbar<span class="op">[</span><span class="at">lambda_</span><span class="op">]</span> <span class="ex">:=</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fl">1.839</span> <span class="fu">Exp</span><span class="op">[</span><span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> ((<span class="fu">Log</span><span class="op">[</span>lambda<span class="op">]</span> <span class="sc">-</span> <span class="fu">Log</span><span class="op">[</span><span class="fl">449.8</span><span class="op">]</span>)<span class="sc">/</span><span class="fl">0.051</span>)<span class="sc">^</span><span class="dv">2</span><span class="op">]</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then we compute the integrals with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode mathematica code-with-copy"><code class="sourceCode mathematica"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">X</span> <span class="ex">=</span> <span class="fu">NIntegrate</span><span class="op">[</span>xbar<span class="op">[</span>lambda<span class="op">]</span> <span class="fu">P</span><span class="op">[</span>lambda<span class="op">],</span> <span class="op">{</span>lambda<span class="op">,</span> <span class="dv">380</span><span class="op">,</span> <span class="dv">780</span><span class="op">}]</span>;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Y</span> <span class="ex">=</span> <span class="fu">NIntegrate</span><span class="op">[</span>ybar<span class="op">[</span>lambda<span class="op">]</span> <span class="fu">P</span><span class="op">[</span>lambda<span class="op">],</span> <span class="op">{</span>lambda<span class="op">,</span> <span class="dv">380</span><span class="op">,</span> <span class="dv">780</span><span class="op">}]</span>;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Z</span> <span class="ex">=</span> <span class="fu">NIntegrate</span><span class="op">[</span>zbar<span class="op">[</span>lambda<span class="op">]</span> <span class="fu">P</span><span class="op">[</span>lambda<span class="op">],</span> <span class="op">{</span>lambda<span class="op">,</span> <span class="dv">380</span><span class="op">,</span> <span class="dv">780</span><span class="op">}]</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and find</p>
+<p><span class="math display">\[
+\begin{aligned}
+X &amp;\approx 0.679966 \\
+Y &amp;\approx 0.569252 \\
+Z &amp;\approx 0.00561767
+\end{aligned}
+\]</span></p>
+<p>and finally we compute the <span class="math inline">\(x, y\)</span> values as:</p>
+<p><span class="math display">\[
+\begin{aligned}
+x &amp;= \frac{X}{X + Y + Z} \approx 0.541881\\
+y &amp;= \frac{Y}{X + Y + Z} \approx 0.453642\\
+\end{aligned}
+\]</span></p>
+<p>To compute linear RGB from XYZ we use the following linear transformation:</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+R_{\mathrm{lin}} \\
+G_{\mathrm{lin}} \\
+B_{\mathrm{lin}}
+\end{pmatrix}
+=
+\begin{pmatrix}
+3.2406 &amp; -1.5372 &amp; -0.4986 \\
+-0.9689 &amp; 1.8758 &amp; 0.0415 \\
+0.0557 &amp; -0.2040 &amp; 1.0570
+\end{pmatrix}
+\begin{pmatrix}
+X \\
+Y \\
+Z
+\end{pmatrix}.
+\]</span></p>
+<p>We achieve this with the following mathematica code:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode mathematica code-with-copy"><code class="sourceCode mathematica"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>XYZtoLinearSRGB<span class="op">[{</span><span class="at">X_</span><span class="op">,</span> <span class="at">Y_</span><span class="op">,</span> <span class="at">Z_</span><span class="op">}]</span> <span class="ex">:=</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="fl">3.2406</span> <span class="fu">X</span> <span class="sc">-</span> <span class="fl">1.5372</span> <span class="fu">Y</span> <span class="sc">-</span> <span class="fl">0.4986</span> <span class="fu">Z</span><span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="fl">0.9689</span> <span class="fu">X</span> <span class="sc">+</span> <span class="fl">1.8758</span> <span class="fu">Y</span> <span class="sc">+</span> <span class="fl">0.0415</span> <span class="fu">Z</span><span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   <span class="fl">0.0557</span> <span class="fu">X</span> <span class="sc">-</span> <span class="fl">0.2040</span> <span class="fu">Y</span> <span class="sc">+</span> <span class="fl">1.0570</span> <span class="fu">Z</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span><span class="fu">R</span><span class="op">,</span> <span class="fu">G</span><span class="op">,</span> <span class="fu">B</span><span class="op">}</span> <span class="ex">=</span> XYZtoLinearSRGB<span class="op">[{</span><span class="fu">X</span><span class="op">,</span> <span class="fu">Y</span><span class="op">,</span> <span class="fu">Z</span><span class="op">}]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and obtain:</p>
+<p><span class="math display">\[
+\begin{aligned}
+R &amp;\approx 1.33 \\
+G &amp;\approx 0.41 \\
+B &amp;\approx -0.07
+\end{aligned}
+\]</span></p>
+<p>Here R and B are outside of representable RGB gamut. Clipping them we get</p>
+<p><span class="math display">\[
+\begin{aligned}
+R &amp;\approx 1 \\
+G &amp;\approx 0.41 \\
+B &amp;\approx 0
+\end{aligned}
+\]</span></p>
+<p>Converting this to <span class="math inline">\([0,255]\)</span> scale we get</p>
+<p><span class="math display">\[
+(R, G, B) = (255, 171, 0)
+\]</span></p>
+<p>This is a bright yellow-orange color, with no blue</p>
 
 
 </section>
@@ -596,11 +828,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./01.html" class="pagination-link" aria-label="Sheet 1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sheet 1</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01.html" class="pagination-link" aria-label="Sheet 1">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sheet 1</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

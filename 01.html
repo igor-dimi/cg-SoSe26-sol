@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Igor Dimitrov">
-<meta name="dcterms.date" content="2026-04-21">
 
-<title>SoSe 26 Computer Graphics Solutions</title>
+<title>SoSe 26 Computer Graphics Solutions - 1&nbsp; Sheet 1</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01.html" rel="next">
+<link href="./02.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sheet 1</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -112,13 +140,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01.html" class="sidebar-item-text sidebar-link">
+  <a href="./01.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sheet 1</span></span></a>
   </div>
 </li>
@@ -138,7 +166,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#assignment-1.1" id="toc-assignment-1.1" class="nav-link active" data-scroll-target="#assignment-1.1"><span class="header-section-number">1.1</span> Assignment 1.1</a></li>
+  <li><a href="#assignment-1.2" id="toc-assignment-1.2" class="nav-link" data-scroll-target="#assignment-1.2"><span class="header-section-number">1.2</span> Assignment 1.2</a></li>
   </ul>
 </nav>
     </div>
@@ -147,26 +176,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">SoSe 26 Computer Graphics Solutions</h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sheet 1</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Igor Dimitrov </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 21, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -176,10 +193,36 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This is a Quarto book.</p>
-<p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<pre><code>Cemile Buyukakkac
+Malte Herzog
+Igor Dimitrov</code></pre>
+<section id="assignment-1.1" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="assignment-1.1"><span class="header-section-number">1.1</span> Assignment 1.1</h2>
+<ol type="a">
+<li><p>|Pixel| = 3840 x 2160 = 829440<br>
+The whole dispaly is generated in <span class="math inline">\(t = \frac{1}{f} = \frac{1}{60}s\)</span><br>
+<span class="math inline">\(\Rightarrow\)</span> Generation of a single pixel can take at most:</p>
+<p><span class="math display">\[t_{max} = \frac{1}{3840 \times 2160 \times 60}s \approx 2 ns\]</span></p></li>
+<li><p>Data load of 24 bits per pixel is due to three color channels Red, Green, and Blue, each 8 bit , i.e.&nbsp;1B. Therefore there are 8 Bytes per pixel and 3840 x 2160 pixels in total. Since the display is regenerated every 1/60 seconds, we have:</p></li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+B &amp;= 3B \times 3840 \times 2160 \times 60 \frac{1}{s} \\
+  &amp;\approx 1.4 GB / s
+\end{align*}\]</span></p>
+</section>
+<section id="assignment-1.2" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="assignment-1.2"><span class="header-section-number">1.2</span> Assignment 1.2</h2>
+<ol type="a">
+<li>There are three types of light-sensitive receptors,
+<ul>
+<li>S: corresponding to blue</li>
+<li>M: corresponding to green</li>
+<li>L corresponding to red but the perception of color is calculated simply as superposition of three channels but rather as two channels combination of pairs of opposing colors</li>
+</ul></li>
+<li>To focus (or zoom in this context) means to reduce the field of vision, and reducing the field of vision corresponds to a smaller solid angle. The smaller the solid angle is, the less light arrives at the camera lens or human eye through the telescope, which makes the object appear dimmer, or not bright enough.<br>
+</li>
+<li>metamers are color pairs that look or are perceived identically to the human eye, although they emit different light spectra, because they produce the same response in the three cone types (L, M, S)</li>
+</ol>
 
 
 </section>
@@ -596,10 +639,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01.html" class="pagination-link" aria-label="Sheet 1">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sheet 1</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02.html" class="pagination-link" aria-label="Sheet 2">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sheet 2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

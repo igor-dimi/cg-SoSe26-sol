@@ -10,33 +10,53 @@
     ]
   },
   {
-    "objectID": "intro.html",
-    "href": "intro.html",
-    "title": "1  Introduction",
+    "objectID": "01.html",
+    "href": "01.html",
+    "title": "1  Sheet 1",
     "section": "",
-    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "1.1 Assignment 1.1\n\\[\\begin{align*}\nB &= 3B \\times 3840 \\times 2160 \\times 60 \\frac{1}{s} \\\\\n  &\\approx 1.4 GB / s\n\\end{align*}\\]",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sheet 1</span>"
     ]
   },
   {
-    "objectID": "summary.html",
-    "href": "summary.html",
-    "title": "2  Summary",
+    "objectID": "01.html#assignment-1.1",
+    "href": "01.html#assignment-1.1",
+    "title": "1  Sheet 1",
     "section": "",
-    "text": "In summary, this book has no content whatsoever.",
+    "text": "|Pixel| = 3840 x 2160 = 829440\nThe whole dispaly is generated in \\(t = \\frac{1}{f} = \\frac{1}{60}s\\)\n\\(\\Rightarrow\\) Generation of a single pixel can take at most:\n\\[t_{max} = \\frac{1}{3840 \\times 2160 \\times 60}s \\approx 2 ns\\]\nData load of 24 bits per pixel is due to three color channels Red, Green, and Blue, each 8 bit , i.e. 1B. Therefore there are 8 Bytes per pixel and 3840 x 2160 pixels in total. Since the display is regenerated every 1/60 seconds, we have:",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sheet 1</span>"
     ]
   },
   {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "References",
-    "section": "",
-    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "objectID": "01.html#assignment-1.2",
+    "href": "01.html#assignment-1.2",
+    "title": "1  Sheet 1",
+    "section": "1.2 Assignment 1.2",
+    "text": "1.2 Assignment 1.2\n\nThere are three types of light-sensitive receptors,\n\nS: corresponding to blue\nM: corresponding to green\nL corresponding to red but the perception of color is calculated simply as superposition of three channels but rather as two channels combination of pairs of opposing colors\n\nTo focus (or zoom in this context) means to reduce the field of vision, and reducing the field of vision corresponds to a smaller solid angle. The smaller the solid angle is, the less light arrives at the camera lens or human eye through the telescope, which makes the object appear dimmer, or not bright enough.\n\nmetamers are color pairs that look or are perceived identically to the human eye, although they emit different light spectra, because they produce the same response in the three cone types (L, M, S)",
     "crumbs": [
-      "References"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Sheet 1</span>"
+    ]
+  },
+  {
+    "objectID": "02.html",
+    "href": "02.html",
+    "title": "2  Sheet 2",
+    "section": "",
+    "text": "2.1 Assignment 1\na receptive field have usually a center-surround structure where light in the center excites a neuron, while the light in the surrounding region inhibits it, or vice versa.\nMach bands arise because these center-surround receptive fields perform a local constrast enhancement. Near a luminance edge, one receptive field may receive more excitation than inhibition, making the side look brither, or vice versa. e) three operations: i)\nrelation to YIQ\nin the YIQ model the Y channel is calculated approximately as:\nY = 0.3 R + 0.6G + 0.1 B\nwhere we see that green contributes the most and blue the least. This corresponds roughly to the human perception of brightness - it is strongest around green-yellow region and weakeste in the blue region, due to S cells contributing close to nothing to the perception of brightness.\nI and Q channels carry color-difference information. They do not correspond exactly to the biological opponent channels, but they similarly separate color information from brithness detail - human eye is much more sensitive to contrast than to color difference\n\\[\nP(\\lambda) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}}\\text{exp}\\biggl(-\\frac{(\\lambda - \\mu)^2}{2\\sigma^2}\\biggr) W\n\\]\nIs a Guassian / normal distribution shape:\nAnd the color matching functions are given as:\n\\[\n\\bar{x}(\\lambda)\n=\n1.065\n\\exp\\left(\n-\\frac{1}{2}\n\\left(\n\\frac{\\lambda - 595.8}{33.33}\n\\right)^2\n\\right)\n+\n0.366\n\\exp\\left(\n-\\frac{1}{2}\n\\left(\n\\frac{\\lambda - 446.8}{19.44}\n\\right)^2\n\\right)\n\\]\n\\[\n\\bar{y}(\\lambda)\n=\n1.014\n\\exp\\left(\n-\\frac{1}{2}\n\\left(\n\\frac{\\ln \\lambda - \\ln 556.3}{0.075}\n\\right)^2\n\\right)\n\\]\n\\[\n\\bar{z}(\\lambda)\n=\n1.839\n\\exp\\left(\n-\\frac{1}{2}\n\\left(\n\\frac{\\ln \\lambda - \\ln 449.8}{0.051}\n\\right)^2\n\\right)\n\\]\nwhich can be plotted as follows (together with a scaled version of \\(P(\\lambda)\\)):\nTo compute \\(X, Y, Z\\) we compute the integrals:\n\\[\n\\begin{aligned}\nX &= \\int_{\\lambda} \\bar{x}(\\lambda)\\,P(\\lambda)\\,d\\lambda, \\\\\nY &= \\int_{\\lambda} \\bar{y}(\\lambda)\\,P(\\lambda)\\,d\\lambda, \\\\\nZ &= \\int_{\\lambda} \\bar{z}(\\lambda)\\,P(\\lambda)\\,d\\lambda.\n\\end{aligned}\n\\]\nWe can use a symbolic or numerical mathematics software. In our case we used mathematica where we computed the integrals with the following code:\nFirst we define the functions:\nThen we compute the integrals with:\nand find\n\\[\n\\begin{aligned}\nX &\\approx 0.679966 \\\\\nY &\\approx 0.569252 \\\\\nZ &\\approx 0.00561767\n\\end{aligned}\n\\]\nand finally we compute the \\(x, y\\) values as:\n\\[\n\\begin{aligned}\nx &= \\frac{X}{X + Y + Z} \\approx 0.541881\\\\\ny &= \\frac{Y}{X + Y + Z} \\approx 0.453642\\\\\n\\end{aligned}\n\\]\nTo compute linear RGB from XYZ we use the following linear transformation:\n\\[\n\\begin{pmatrix}\nR_{\\mathrm{lin}} \\\\\nG_{\\mathrm{lin}} \\\\\nB_{\\mathrm{lin}}\n\\end{pmatrix}\n=\n\\begin{pmatrix}\n3.2406 & -1.5372 & -0.4986 \\\\\n-0.9689 & 1.8758 & 0.0415 \\\\\n0.0557 & -0.2040 & 1.0570\n\\end{pmatrix}\n\\begin{pmatrix}\nX \\\\\nY \\\\\nZ\n\\end{pmatrix}.\n\\]\nWe achieve this with the following mathematica code:\nand obtain:\n\\[\n\\begin{aligned}\nR &\\approx 1.33 \\\\\nG &\\approx 0.41 \\\\\nB &\\approx -0.07\n\\end{aligned}\n\\]\nHere R and B are outside of representable RGB gamut. Clipping them we get\n\\[\n\\begin{aligned}\nR &\\approx 1 \\\\\nG &\\approx 0.41 \\\\\nB &\\approx 0\n\\end{aligned}\n\\]\nConverting this to \\([0,255]\\) scale we get\n\\[\n(R, G, B) = (255, 171, 0)\n\\]\nThis is a bright yellow-orange color, with no blue",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sheet 2</span>"
+    ]
+  },
+  {
+    "objectID": "02.html#assignment-1",
+    "href": "02.html#assignment-1",
+    "title": "2  Sheet 2",
+    "section": "",
+    "text": "Vector-based advantages:\n\nresolution independent\n\nVector-based disadvantages:\n\nimage build-up is difficult in complex scenes\n\nRaster-based advantages:\n\nrepeated image build-up independent of scene complexity\n\nRaster-based disadvantages:\n\nMoire effects due to finite number of pixels\n\n\na spectral color, or a monochromatic color, is light produced by the light of single wavelength in the visible spectrum\n\nmach bands are an optical illusion where we perceive extra-bright and extra-dark bands near the boundary between two regions with different luminance gradients\n\n\n\n\n\n\n\n\n\nThe light spectrum is given as\n\n\n\n\n\n\n\\(P(\\lambda)\\)\n\n\n\n\n\n\n\n\n\n\n\\(x, y, z\\)\n\n\n\n\n\n\nsigma = 40;\nmu = 600;\n\nP[lambda_] := 1/Sqrt[2 Pi sigma^2] Exp[-(lambda - mu)^2/(2 sigma^2)];\n\nxbar[lambda_] := \n  1.065 Exp[-1/2 ((lambda - 595.8)/33.33)^2] +\n  0.366 Exp[-1/2 ((lambda - 446.8)/19.44)^2];\n\nybar[lambda_] := \n  1.014 Exp[-1/2 ((Log[lambda] - Log[556.3])/0.075)^2];\n\nzbar[lambda_] := \n  1.839 Exp[-1/2 ((Log[lambda] - Log[449.8])/0.051)^2];\n\nX = NIntegrate[xbar[lambda] P[lambda], {lambda, 380, 780}];\n\nY = NIntegrate[ybar[lambda] P[lambda], {lambda, 380, 780}];\n\nZ = NIntegrate[zbar[lambda] P[lambda], {lambda, 380, 780}];\n\n\n\n\n\n\n\nXYZtoLinearSRGB[{X_, Y_, Z_}] := {\n   3.2406 X - 1.5372 Y - 0.4986 Z,\n  -0.9689 X + 1.8758 Y + 0.0415 Z,\n   0.0557 X - 0.2040 Y + 1.0570 Z\n}\n\n{R, G, B} = XYZtoLinearSRGB[{X, Y, Z}]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Sheet 2</span>"
     ]
   }
 ]
