@@ -34,7 +34,10 @@ void SimpleRasterizer::DrawSpan(int x1, int x2, int y, float z1, float z2, vec3 
 {
   if (x1 < x2 && (x1 > 0) && (x2 < image->GetWidth()) && (y > 0) && (y < image->GetWidth())) 
     for (int x = x1; x < x2; x++) {
-      image->SetPixel(x, y, color1);
+      vec3 color = ((float) x - (float) x1) / ((float) x2 - (float) x1) * color2 
+                 + ((float) x2 - (float) x) / ((float) x2 - (float) x1) * color1;
+
+      image->SetPixel(x, y, color);
     }
 }
 
@@ -65,14 +68,6 @@ void SimpleRasterizer::DrawTriangle(const Triangle &t)
     sorted[j] = temp;
   }
 
-  std::cout << "P0.y = " << t.position[0].y << std::endl;
-  std::cout << "P1.y = " << t.position[1].y << std::endl;
-  std::cout << "P2.y = " << t.position[2].y << std::endl;
-
-  std::cout << "sorted[0] = " << sorted[0] << std::endl;
-  std::cout << "sorted[1] = " << sorted[1] << std::endl;
-  std::cout << "sorted[2] = " << sorted[2] << std::endl;
-
   float y_top = t.position[sorted[0]].y;
   float x_top = t.position[sorted[0]].x;
 
@@ -81,15 +76,6 @@ void SimpleRasterizer::DrawTriangle(const Triangle &t)
 
   float y_bot = t.position[sorted[2]].y;
   float x_bot = t.position[sorted[2]].x;
-
-  // std::cout << "y_top = " << y_top << std::endl;
-  // std::cout << "x_top = " << y_top << std::endl;
-
-  // std::cout << "y_mid = " << y_mid << std::endl;
-  // std::cout << "x_mid = " << y_mid << std::endl;
-
-  // std::cout << "y_bot = " << y_bot << std::endl;
-  // std::cout << "x_bot = " << y_bot << std::endl;
 
   float y = y_top;
   float xl = x_top;
@@ -107,17 +93,67 @@ void SimpleRasterizer::DrawTriangle(const Triangle &t)
   vec3 color_mid = t.color[sorted[1]];
   vec3 color_bot = t.color[sorted[2]];
 
+  
+
+  // std::cout << "color_top.R = " << color_top.x << std::endl;
+  // std::cout << "color_top.g = " << color_top.y << std::endl;
+  // std::cout << "color_top.b = " << color_top.z << std::endl;
+
+  // std::cout << "color_mid.R = " << color_mid.x << std::endl;
+  // std::cout << "color_mid.g = " << color_mid.y << std::endl;
+  // std::cout << "color_mid.b = " << color_mid.z << std::endl;
+
+  // std::cout << "color_bot.R = " << color_bot.x << std::endl;
+  // std::cout << "color_bot.g = " << color_bot.y << std::endl;
+  // std::cout << "color_bot.b = " << color_bot.z << std::endl;
+
+  float y_test = 200;
+
+  vec3 color = (y_test - 141) / (360 - 141) * color_mid
+             + (360 - y_test) / (360 - 141) * color_top;
+
+
+  // std::cout << "color.R = " << color.x << std::endl;
+  // std::cout << "color.g = " << color.y << std::endl;
+  // std::cout << "color.b = " << color.z << std::endl;
+
 
   if (delta_tm < delta_tb) { // case 1: xl += delta_tm
 
     do
     {
-      SimpleRasterizer::DrawSpan(xl, xr, y, 0, 0, color_top, color_top);
       y++;
-      if (y >= y_mid) // case: middle point is reached, change of slope 
-        xl += delta_mb;
-      else 
+      if (y < y_mid) { // case: middle point is not yet reached
+
+        vec3 color_l = (y - y_top) / (y_mid - y_top) * color_mid
+                     + (y_mid - y) / (y_mid - y_top) * color_top;
+
+        vec3 color_r = (y - y_top) / (y_bot - y_top) * color_bot
+                     + (y_bot - y) / (y_bot - y_top) * color_top;
+
+              
+        // std::cout << "color_l.R = " << color_l.x << std::endl;
+        // std::cout << "color_l.g = " << color_l.y << std::endl;
+        // std::cout << "color_l.b = " << color_l.z << std::endl;
+
+        // std::cout << "color_r.R = " << color_r.x << std::endl;
+        // std::cout << "color_r.g = " << color_r.y << std::endl;
+        // std::cout << "color_r.b = " << color_r.z << std::endl;
+
+        SimpleRasterizer::DrawSpan(xl, xr, y, 0, 0, color_l, color_r);
+
         xl += delta_tm;
+      }
+      else {  // case: middle point is reached, change of slope
+        vec3 color_l = (y - y_mid) / (y_bot - y_mid) * color_bot
+                     + (y_bot -y) / (y_bot - y_mid) * color_mid;
+
+        vec3 color_r = (y - y_top) / (y_bot - y_top) * color_bot
+                     + (y_bot - y) / (y_bot - y_top) * color_top;
+
+        SimpleRasterizer::DrawSpan(xl, xr, y, 0, 0, color_l, color_r);
+        xl += delta_mb;
+      }
       xr += delta_tb;
 
     } while (y < y_bot);
@@ -126,13 +162,32 @@ void SimpleRasterizer::DrawTriangle(const Triangle &t)
   } else { // case 2: xl += delta_tb
     do
     {
-      
-      SimpleRasterizer::DrawSpan(xl, xr, y, 0, 0, color_top, color_top);
       y++;
-      if (y >= y_mid) // case: middle point is reached, change of slope
-        xr += delta_mb;
-      else 
+      if (y < y_mid) { // case: middle point is not yet reached
+
+
+        vec3 color_r = (y - y_top) / (y_mid - y_top) * color_mid
+                     + (y_mid - y) / (y_mid - y_top) * color_top;
+
+        vec3 color_l = (y - y_top) / (y_bot - y_top) * color_bot
+                     + (y_bot - y) / (y_bot - y_top) * color_top;
+
+
+        SimpleRasterizer::DrawSpan(xl, xr, y, 0, 0, color_l, color_r);
         xr += delta_tm;
+      }
+      else { // case: middle point is reached
+
+
+        vec3 color_r = (y - y_mid) / (y_bot - y_mid) * color_bot
+                     + (y_bot -y) / (y_bot - y_mid) * color_mid;
+
+        vec3 color_l = (y - y_top) / (y_bot - y_top) * color_bot
+                     + (y_bot - y) / (y_bot - y_top) * color_top;
+
+        SimpleRasterizer::DrawSpan(xl, xr, y, 0, 0, color_l, color_r);
+        xr += delta_mb;
+      }
       xl += delta_tb;
     } while (y < y_bot);
   }
