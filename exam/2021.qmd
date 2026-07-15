@@ -1,0 +1,123 @@
+---
+title: 2021 solutions
+---
+
+## Task 1
+
+a) raster graphics vs vector graphics:
+   
+
+
+b) explain & motivate following:
+   i) Up vector: 
+      
+      The **up vector** specifies which direction should appear upward in the camera image. Together with the viewing direction, it determines the camera coordinate system and removes the otherwise undetermined rotation around the viewing axis (camera roll). It must not be parallel to the viewing direction.
+
+    ii) **Double buffering**:
+
+        Yes—the main relevant slide is **CG06_1, slide 129**; slide 130 extends it to stereoscopic rendering.
+
+        **Double buffering:** Two color buffers are used. The **front buffer** contains the complete image currently displayed, while the next frame is rendered invisibly into the **back buffer**. When rendering is finished, the buffers are swapped. This prevents incomplete, partially rendered images from being displayed and decouples rendering from the screen refresh.
+    iii) 
+    iv) **backface culling**: 
+        **Backface culling:** For each triangle, its front and back faces are distinguished, commonly using the order of its projected vertices: counterclockwise winding usually indicates a front face. Triangles facing away from the camera are discarded before rasterization. For closed meshes, these back faces are normally hidden by front faces anyway, so culling them avoids unnecessary rendering work. It must be disabled or adjusted when viewing a mesh from the inside or rendering two-sided surfaces.
+
+
+c) explain how vertec normals can be computed from a given mesh. In that context explain the issues that can arise from degenerate triangles
+
+    For every triangle, compute its face normal using the cross product of two edges,
+
+    $$
+    \mathbf n_f=(\mathbf p_2-\mathbf p_1)\times(\mathbf p_3-\mathbf p_1).
+    $$
+
+    For each vertex, sum the normals of all adjacent faces—optionally weighted by their areas or corner angles—and normalize the resulting vector to obtain the vertex normal.
+
+    If a triangle has a zero-length edge, its cross product is the zero vector. This vector cannot be normalized and may produce undefined values that contaminate the vertex-normal calculation. Such degenerate triangles should therefore be detected and ignored or removed.
+
+d) rendering sharp edges can be done by introducing multiple normal per vertex. Does this work equally well for giroud and phong
+
+The approach works for both methods, but not with equal shading quality:
+
+* **Gouraud shading:** Illumination is calculated at each vertex. The different normals assigned to the same geometric position produce different vertex colors for the adjacent faces. These colors are interpolated separately within each face, preserving the discontinuity at the sharp edge. However, lighting effects between vertices—especially small specular highlights—may be missed.
+
+* **Phong shading:** The separate normals are interpolated within their respective faces, and illumination is calculated for every fragment. The normal remains discontinuous across the edge, while lighting within each face is evaluated more accurately.
+
+Thus, both can represent sharp edges, but Phong shading generally renders their illumination more accurately, at greater computational cost. [Phong’s per-pixel shading formulation](https://www.cs.unc.edu/~gb/Pubs/siggraph86.html) also reflects this accuracy–cost trade-off.
+
+e) two projection types, explain the difference:
+
+    The two widely used projection types are:
+
+    * **Orthographic (parallel) projection:** Projection rays are parallel. An object’s apparent size does not decrease with distance, and parallel lines remain parallel.
+    * **Perspective projection:** Projection rays meet at the camera’s projection centre. Distant objects appear smaller, producing perspective foreshortening and a more realistic impression of depth.
+
+f) explain the reasons for aliasing and artifacst it leads to
+
+**Aliasing** is caused by sampling a continuous image or signal at an insufficient spatial or temporal frequency. In particular, if the sampling frequency is not greater than twice the highest signal frequency, high-frequency details are incorrectly represented as lower, artificial frequencies. Sharp object boundaries are especially problematic because they contain very high frequencies.
+
+Typical artifacts include **jagged or staircase-shaped edges**, **Moiré patterns**, distorted fine details, and flickering or crawling patterns in animations.
+
+g) role of perspective divison and its relation to dehomogenizattion
+
+After the projection transformation, a point is represented in homogeneous clip coordinates as
+
+$$
+(x_h,y_h,z_h,w_h).
+$$
+
+**Perspective division** divides the first three coordinates by (w_h):
+
+$$
+(x_h,y_h,z_h,w_h)
+\longmapsto
+\left(\frac{x_h}{w_h},\frac{y_h}{w_h},\frac{z_h}{w_h}\right).
+$$
+
+Since (w_h) depends on the point’s depth, this division makes distant objects appear smaller and maps the perspective view frustum to the normalized unit cube.
+
+Perspective division is therefore precisely the **dehomogenization** performed after the projection transformation; in the course, this complete step is also called the **normalization transformation**.
+
+h) rendering equation
+   i) explain different parts of the rendering equation
+   ii) how if $f$ typically named, how many parameters (dimensions) does it have? 
+   iii) how many parameters, dimensions does the isotropic version of $f$ have
+   iv) explain why this equations
+
+### Task 1(h)
+
+The rendering equation is
+
+$$
+L(\mathbf x,\omega)
+
+E(\mathbf x,\omega)
++
+\int_{\Omega^+}
+f(\mathbf x,\omega_i\rightarrow\omega),
+L_{\mathrm{in}}(\mathbf x,\omega_i),
+\cos\theta_i,d\omega_i.
+$$
+
+**(i) Components**
+
+* **(A) $L(\mathbf x,\omega)$:** total outgoing radiance leaving point $\mathbf x$ in direction $\omega$.
+* **(B) $E(\mathbf x,\omega)$:** radiance emitted by the surface itself in direction $\omega$.
+* **(C) $f(\mathbf x,\omega_i\rightarrow\omega)$:** describes what proportion of light arriving from $\omega_i$ is reflected toward $\omega$.
+* **(D) $L_{\mathrm{in}}(\mathbf x,\omega_i)$:** radiance arriving at $\mathbf x$ from direction $\omega_i$.
+
+The integral sums reflected light arriving from all directions in the positive hemisphere $\Omega^+$. The factor $\cos\theta_i$ accounts for the smaller effective surface area presented to light arriving at a grazing angle.
+
+**(ii)** $f$ is called the **bidirectional reflectance distribution function (BRDF)**. At a fixed surface point, it is four-dimensional: two angles specify the incoming direction and two specify the outgoing direction,
+
+$$
+f(\theta_i,\phi_i,\theta_o,\phi_o).
+$$
+
+**(iii)** An isotropic BRDF is invariant under simultaneous rotation of both directions around the surface normal. Only the relative azimuth matters, so it is three-dimensional:
+
+$$
+f(\theta_i,\theta_o,\phi_i-\phi_o).
+$$
+
+**(iv)** The equation is recursive because the incoming radiance at $\mathbf x$ is outgoing radiance from another visible surface point. That outgoing radiance is itself determined by the rendering equation and depends on light arriving there from still other surfaces. In ray tracing, this leads to recursively tracing secondary rays until a light source is reached or a termination condition is applied.

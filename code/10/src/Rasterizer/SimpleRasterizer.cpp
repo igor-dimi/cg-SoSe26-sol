@@ -32,13 +32,15 @@ bool SimpleRasterizer::CompareTriangle(const Triangle &t1, const Triangle &t2)
 void SimpleRasterizer::DrawSpan(int x1, int x2, int y, float z1, float z2, vec3 &color1,
                 vec3 &color2)
 {
-  if (x1 < x2 && (x1 > 0) && (x2 < image->GetWidth()) && (y > 0) && (y < image->GetWidth())) 
+  if (x1 < x2 && (x1 > 0) && (x2 < image->GetWidth()) && (y > 0) && (y < image->GetWidth())) {
+    vec3 color;
     for (int x = x1; x < x2; x++) {
-      vec3 color = ((float) x - (float) x1) / ((float) x2 - (float) x1) * color2 
+      color = ((float) x - (float) x1) / ((float) x2 - (float) x1) * color2 
                  + ((float) x2 - (float) x) / ((float) x2 - (float) x1) * color1;
 
       image->SetPixel(x, y, color);
     }
+  }
 }
 
 void SimpleRasterizer::DrawTriangle(const Triangle &t)
@@ -107,10 +109,10 @@ void SimpleRasterizer::DrawTriangle(const Triangle &t)
   // std::cout << "color_bot.g = " << color_bot.y << std::endl;
   // std::cout << "color_bot.b = " << color_bot.z << std::endl;
 
-  float y_test = 200;
+  // float y_test = 200;
 
-  vec3 color = (y_test - 141) / (360 - 141) * color_mid
-             + (360 - y_test) / (360 - 141) * color_top;
+  // vec3 color = (y_test - 141) / (360 - 141) * color_mid
+  //            + (360 - y_test) / (360 - 141) * color_top;
 
 
   // std::cout << "color.R = " << color.x << std::endl;

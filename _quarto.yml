@@ -12,6 +12,7 @@ book:
     # - intro.qmd
     # - summary.qmd
     # - references.qmd
+    - exam/2021.qmd
   downloads: pdf
 
 bibliography: references.bib
