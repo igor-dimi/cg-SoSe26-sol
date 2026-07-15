@@ -89,14 +89,6 @@ h) rendering equation
 The rendering equation is
 
 $$
-L(\mathbf x,\omega)
-
-E(\mathbf x,\omega)
-+
-\int_{\Omega^+}
-f(\mathbf x,\omega_i\rightarrow\omega),
-L_{\mathrm{in}}(\mathbf x,\omega_i),
-\cos\theta_i,d\omega_i.
 $$
 
 **(i) Components**
@@ -104,8 +96,6 @@ $$
 * **(A) $L(\mathbf x,\omega)$:** total outgoing radiance leaving point $\mathbf x$ in direction $\omega$.
 * **(B) $E(\mathbf x,\omega)$:** radiance emitted by the surface itself in direction $\omega$.
 * **(C) $f(\mathbf x,\omega_i\rightarrow\omega)$:** describes what proportion of light arriving from $\omega_i$ is reflected toward $\omega$.
-* **(D) $L_{\mathrm{in}}(\mathbf x,\omega_i)$:** radiance arriving at $\mathbf x$ from direction $\omega_i$.
-
 The integral sums reflected light arriving from all directions in the positive hemisphere $\Omega^+$. The factor $\cos\theta_i$ accounts for the smaller effective surface area presented to light arriving at a grazing angle.
 
 **(ii)** $f$ is called the **bidirectional reflectance distribution function (BRDF)**. At a fixed surface point, it is four-dimensional: two angles specify the incoming direction and two specify the outgoing direction,
