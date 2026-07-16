@@ -1,72 +1,63 @@
 ---
-title: 2021 solutions
+title: "ICG Mock Exam 2021 — Concise Solutions"
 ---
 
-## Task 1
+## Task 1 — Fundamentals
 
-a) raster graphics vs vector graphics:
-   
+### a) Raster graphics vs. vector graphics
 
+*Not yet completed.*
 
-b) explain & motivate following:
-   i) Up vector: 
-      
-      The **up vector** specifies which direction should appear upward in the camera image. Together with the viewing direction, it determines the camera coordinate system and removes the otherwise undetermined rotation around the viewing axis (camera roll). It must not be parallel to the viewing direction.
+### b) Concepts
 
-    ii) **Double buffering**:
+#### i) Up vector
 
-        Yes—the main relevant slide is **CG06_1, slide 129**; slide 130 extends it to stereoscopic rendering.
+The **up vector** specifies which direction appears upward in the camera image. Together with the view direction, it fixes the camera coordinate system and removes ambiguity about camera roll. It must not be parallel to the view direction.
 
-        **Double buffering:** Two color buffers are used. The **front buffer** contains the complete image currently displayed, while the next frame is rendered invisibly into the **back buffer**. When rendering is finished, the buffers are swapped. This prevents incomplete, partially rendered images from being displayed and decouples rendering from the screen refresh.
-    iii) 
-    iv) **backface culling**: 
-        **Backface culling:** For each triangle, its front and back faces are distinguished, commonly using the order of its projected vertices: counterclockwise winding usually indicates a front face. Triangles facing away from the camera are discarded before rasterization. For closed meshes, these back faces are normally hidden by front faces anyway, so culling them avoids unnecessary rendering work. It must be disabled or adjusted when viewing a mesh from the inside or rendering two-sided surfaces.
+#### ii) Double buffering
 
+The **front buffer** displays the current image while the next frame is rendered into the invisible **back buffer**. After rendering, the buffers are swapped. This prevents incomplete frames and decouples rendering from screen refresh.
 
-c) explain how vertec normals can be computed from a given mesh. In that context explain the issues that can arise from degenerate triangles
+#### iii) View frustum
 
-    For every triangle, compute its face normal using the cross product of two edges,
+The **view frustum** is the region visible to the camera, bounded by left, right, top, bottom, near, and far planes. It is a truncated pyramid for perspective projection and a cuboid for orthographic projection. Geometry outside it is clipped; projection maps it to the normalized unit cube.
 
-    $$
-    \mathbf n_f=(\mathbf p_2-\mathbf p_1)\times(\mathbf p_3-\mathbf p_1).
-    $$
+#### iv) Backface culling
 
-    For each vertex, sum the normals of all adjacent faces—optionally weighted by their areas or corner angles—and normalize the resulting vector to obtain the vertex normal.
+Triangles facing away from the camera are discarded, usually based on vertex winding. For closed meshes these backfaces are hidden anyway, so culling saves rasterization work. It is unsuitable for visible interiors or two-sided surfaces.
 
-    If a triangle has a zero-length edge, its cross product is the zero vector. This vector cannot be normalized and may produce undefined values that contaminate the vertex-normal calculation. Such degenerate triangles should therefore be detected and ignored or removed.
+### c) Vertex normals and degenerate triangles
 
-d) rendering sharp edges can be done by introducing multiple normal per vertex. Does this work equally well for giroud and phong
+For each triangle, compute its face normal:
 
-The approach works for both methods, but not with equal shading quality:
+$$
+\mathbf n_f=(\mathbf p_2-\mathbf p_1)\times(\mathbf p_3-\mathbf p_1).
+$$
 
-* **Gouraud shading:** Illumination is calculated at each vertex. The different normals assigned to the same geometric position produce different vertex colors for the adjacent faces. These colors are interpolated separately within each face, preserving the discontinuity at the sharp edge. However, lighting effects between vertices—especially small specular highlights—may be missed.
+At each vertex, sum adjacent face normals—optionally area- or angle-weighted—and normalize. A zero-length edge yields a zero cross product, which cannot be normalized; degenerate triangles must therefore be ignored or removed.
 
-* **Phong shading:** The separate normals are interpolated within their respective faces, and illumination is calculated for every fragment. The normal remains discontinuous across the edge, while lighting within each face is evaluated more accurately.
+### d) Sharp edges with Gouraud and Phong shading
 
-Thus, both can represent sharp edges, but Phong shading generally renders their illumination more accurately, at greater computational cost. [Phong’s per-pixel shading formulation](https://www.cs.unc.edu/~gb/Pubs/siggraph86.html) also reflects this accuracy–cost trade-off.
+Multiple normals preserve a normal discontinuity across a sharp edge in both methods. **Gouraud shading** computes and interpolates vertex colors, so it may miss lighting effects between vertices. **Phong shading** interpolates the separate normals and evaluates illumination per fragment, giving more accurate results at higher cost.
 
-e) two projection types, explain the difference:
+### e) Projection types
 
-    The two widely used projection types are:
+- **Orthographic projection:** parallel projection rays; size does not decrease with distance and parallel lines remain parallel.
+- **Perspective projection:** rays meet at the projection centre; distant objects appear smaller.
 
-    * **Orthographic (parallel) projection:** Projection rays are parallel. An object’s apparent size does not decrease with distance, and parallel lines remain parallel.
-    * **Perspective projection:** Projection rays meet at the camera’s projection centre. Distant objects appear smaller, producing perspective foreshortening and a more realistic impression of depth.
+### f) Aliasing
 
-f) explain the reasons for aliasing and artifacst it leads to
+Aliasing occurs when a signal is sampled below the Nyquist rate. High frequencies are then represented as false lower frequencies. Artifacts include jaggies, Moiré patterns, distorted detail, and temporal flickering.
 
-**Aliasing** is caused by sampling a continuous image or signal at an insufficient spatial or temporal frequency. In particular, if the sampling frequency is not greater than twice the highest signal frequency, high-frequency details are incorrectly represented as lower, artificial frequencies. Sharp object boundaries are especially problematic because they contain very high frequencies.
+### g) Perspective division and dehomogenization
 
-Typical artifacts include **jagged or staircase-shaped edges**, **Moiré patterns**, distorted fine details, and flickering or crawling patterns in animations.
-
-g) role of perspective divison and its relation to dehomogenizattion
-
-After the projection transformation, a point is represented in homogeneous clip coordinates as
+After projection, a point has homogeneous clip coordinates
 
 $$
 (x_h,y_h,z_h,w_h).
 $$
 
-**Perspective division** divides the first three coordinates by (w_h):
+Perspective division gives
 
 $$
 (x_h,y_h,z_h,w_h)
@@ -74,220 +65,150 @@ $$
 \left(\frac{x_h}{w_h},\frac{y_h}{w_h},\frac{z_h}{w_h}\right).
 $$
 
-Since (w_h) depends on the point’s depth, this division makes distant objects appear smaller and maps the perspective view frustum to the normalized unit cube.
+Because $w_h$ depends on depth in perspective projection, this produces foreshortening and maps the frustum to normalized device coordinates. It is precisely dehomogenization after projection, also called the normalization transformation.
 
-Perspective division is therefore precisely the **dehomogenization** performed after the projection transformation; in the course, this complete step is also called the **normalization transformation**.
-
-h) rendering equation
-   i) explain different parts of the rendering equation
-   ii) how if $f$ typically named, how many parameters (dimensions) does it have? 
-   iii) how many parameters, dimensions does the isotropic version of $f$ have
-   iv) explain why this equations
-
-### Task 1(h)
-
-The rendering equation is
+### h) Rendering equation
 
 $$
+L(\mathbf x,\omega)=E(\mathbf x,\omega)
++\int_{\Omega^+}
+f(\mathbf x,\omega_i\rightarrow\omega)
+L_{\mathrm{in}}(\mathbf x,\omega_i)
+\cos\theta_i\,d\omega_i.
 $$
 
-**(i) Components**
+#### i) Components
 
-* **(A) $L(\mathbf x,\omega)$:** total outgoing radiance leaving point $\mathbf x$ in direction $\omega$.
-* **(B) $E(\mathbf x,\omega)$:** radiance emitted by the surface itself in direction $\omega$.
-* **(C) $f(\mathbf x,\omega_i\rightarrow\omega)$:** describes what proportion of light arriving from $\omega_i$ is reflected toward $\omega$.
-The integral sums reflected light arriving from all directions in the positive hemisphere $\Omega^+$. The factor $\cos\theta_i$ accounts for the smaller effective surface area presented to light arriving at a grazing angle.
+- **A — $L(\mathbf x,\omega)$:** outgoing radiance from $\mathbf x$ in direction $\omega$.
+- **B — $E(\mathbf x,\omega)$:** emitted radiance.
+- **C — $f(\mathbf x,\omega_i\rightarrow\omega)$:** fraction of incoming light reflected toward $\omega$.
+- **D — $L_{\mathrm{in}}(\mathbf x,\omega_i)$:** incoming radiance from $\omega_i$.
 
-**(ii)** $f$ is called the **bidirectional reflectance distribution function (BRDF)**. At a fixed surface point, it is four-dimensional: two angles specify the incoming direction and two specify the outgoing direction,
+The integral sums all incoming directions in the positive hemisphere; $\cos\theta_i$ accounts for projected surface area.
+
+#### ii) Name and dimensionality of $f$
+
+$f$ is the **bidirectional reflectance distribution function (BRDF)**. At a fixed point it is four-dimensional:
 
 $$
 f(\theta_i,\phi_i,\theta_o,\phi_o).
 $$
 
-**(iii)** An isotropic BRDF is invariant under simultaneous rotation of both directions around the surface normal. Only the relative azimuth matters, so it is three-dimensional:
+#### iii) Isotropic BRDF
+
+Rotational invariance around the normal removes one angular degree of freedom, leaving three dimensions:
 
 $$
 f(\theta_i,\theta_o,\phi_i-\phi_o).
 $$
 
-**(iv)** The equation is recursive because the incoming radiance at $\mathbf x$ is outgoing radiance from another visible surface point. That outgoing radiance is itself determined by the rendering equation and depends on light arriving there from still other surfaces. In ray tracing, this leads to recursively tracing secondary rays until a light source is reached or a termination condition is applied.
+#### iv) Recursion
 
-## Task 2 Color
+Incoming radiance at $\mathbf x$ is outgoing radiance from the next visible surface point. Evaluating it requires the same equation there, producing recursive secondary rays.
 
-a) What is the fole of K in CMYK, motivate it. 
+## Task 2 — Color
 
-In **CMYK**, (K) is the **key (black) ink**. It replaces the common black component of cyan, magenta, and yellow,
+### a) Role of K in CMYK
+
+$K$ is **key/black ink**. It replaces the common black component
 
 $$
 K=\min(C,M,Y),
 $$
 
-because combining CMY inks does not produce a clean, fully covering black in practice. Using separate black ink also improves contrast and saves colored ink.
+because CMY inks do not produce a clean covering black. Separate black improves contrast and saves colored ink.
 
-b) The chromaticity diagram omits **brightness (luminance), represented by (Y)**. It displays only the chromaticity coordinates $x$ and $y$, which describe color independent of brightness.
+### b) Missing dimension in the chromaticity diagram
 
-Note that the omitted quantity is not lowercase $z$, because $z=1-x-y$ is already determined by $x$ and $y$.
-
+The diagram omits **luminance $Y$** and displays only chromaticity $(x,y)$. Lowercase $z$ is not an independent missing dimension because $z=1-x-y$.
 
 ::: {.callout-note}
-## Review of X, Y Z
+## Recall: CIE XYZ and xyY
 
-(X), (Y), and (Z) are three **tristimulus values**: numerical coordinates describing a perceived color in the CIE XYZ color space.
-
-They are computed from the light spectrum (S(\lambda)) using the CIE standard-observer color-matching functions:
+$X,Y,Z$ are tristimulus values obtained from the spectrum $S(\lambda)$:
 
 $$
-X=\int S(\lambda),\overline{x}(\lambda),d\lambda,
+X=\int S(\lambda)\,\overline{x}(\lambda)\,d\lambda,
 \qquad
-Y=\int S(\lambda),\overline{y}(\lambda),d\lambda,
+Y=\int S(\lambda)\,\overline{y}(\lambda)\,d\lambda,
 \qquad
-Z=\int S(\lambda),\overline{z}(\lambda),d\lambda.
+Z=\int S(\lambda)\,\overline{z}(\lambda)\,d\lambda.
 $$
 
-Their roles are:
-
-* $Y$ was deliberately designed to represent **luminance**, or perceived brightness.
-* $X$ and $Z$, together with $Y$, carry the remaining chromatic information.
-
-They should not be interpreted simply as red, green, and blue intensities. XYZ uses mathematically defined, partly “imaginary” primaries chosen so that visible colors can be represented conveniently with nonnegative values.
-
-The chromaticity coordinates remove overall intensity through normalization:
+$Y$ represents luminance. Chromaticity is
 
 $$
-x=\frac{X}{X+Y+Z},
-\qquad
-y=\frac{Y}{X+Y+Z},
-\qquad
+x=\frac{X}{X+Y+Z},\qquad
+y=\frac{Y}{X+Y+Z},\qquad
 z=\frac{Z}{X+Y+Z}=1-x-y.
 $$
-
-Thus $x$ and $y$ describe chromaticity, while uppercase $Y$ retains the brightness information.
-
-
 :::
 
+### c) Luminance sensitivity and compression
 
-c) is the human visual system more sensitive to color variation
-or brightness vareiation? Explain how this motivates image compression approaches? 
+Vision is more sensitive to **luminance** than to chrominance variation. Compression therefore preserves luminance at higher resolution while subsampling or more strongly quantizing chrominance channels, e.g. $C_b$ and $C_r$ in YCbCr.
 
-The human visual system is more sensitive to variations in **luminance (brightness)** than to variations in **chrominance (color)**.
+### d) MacAdam ellipses
 
-Image compression therefore commonly converts RGB into separate luminance and chrominance components, such as $Y$, $C_b$, and $C_r$. The luminance channel $Y$ is retained at higher resolution and precision, while the chrominance channels can be subsampled or quantized more strongly. This reduces the data size while causing relatively little perceptible loss of image quality.
+A MacAdam ellipse contains colors indistinguishable from its centre at a chosen threshold. Their varying sizes and orientations in CIE $xy$ show perceptual non-uniformity. In a perfectly uniform color space they would be equal-sized circles.
 
-d) MacAdam ellipses? how would they look like for a perfectly
-perceptually uniform color space? 
+### e) Metamerism
 
-**MacAdam ellipses** represent regions around reference colors in which color differences are not perceptible, or are below a chosen just-noticeable-difference threshold. Colors inside an ellipse appear indistinguishable from the color at its centre.
+**Metamerism:** different spectra produce the same cone responses and are therefore perceived as the same color.
 
-In the CIE (xy) diagram, their different sizes and orientations show that equal geometric distances do not correspond to equal perceived color differences. In a perfectly perceptually uniform color space, all MacAdam ellipses would become **circles of equal size**, independent of their position.
+### f) Mach bands
 
-e) what is metamerism
-
-**Metamerism** means that two physically different spectral distributions can produce the same responses in the three types of cone cells and therefore be perceived as the same color. Such spectra are called **metamers**.
-
-f) explain Mach bands, including the role of receptive fields?
-
-   **Mach bands** are illusory bright and dark bands perceived near boundaries or changes in a luminance gradient, even though those bands are not present in the actual intensity distribution.
-
-    They arise from **centre-surround receptive fields** and lateral inhibition in the visual system. A receptor’s response depends not only on light at its centre but also on the brightness of the surrounding region. Near a boundary:
-
-    * on the bright side, part of the surrounding region is darker, causing less inhibition and an exaggerated bright response;
-    * on the dark side, part of the surrounding region is brighter, causing stronger inhibition and an exaggerated dark response.
-
-    The visual system therefore enhances the luminance gradient, making boundaries easier to detect but producing the Mach-band illusion.
-
+Mach bands are illusory bright and dark bands near changes in a luminance gradient. Centre-surround receptive fields and lateral inhibition exaggerate local contrast: the bright side appears brighter and the dark side darker.
 
 ::: {.callout-note}
+## Recall: centre-surround function
 
-## functions of centre-surround structure
-
-The complementary surround makes the receptive field measure **local contrast**, rather than simply absolute light intensity.
-
-An ON-centre/OFF-surround receptive field behaves approximately like
+An ON-centre/OFF-surround field behaves approximately as
 
 $$
-R \approx I_{\text{centre}}
--\operatorname{average}(I_{\text{surround}}).
+R\approx I_{\mathrm{centre}}
+-\operatorname{average}(I_{\mathrm{surround}}).
 $$
 
-Therefore:
-
-* If the entire region is uniformly bright, centre and surround largely cancel, producing only a weak response.
-* If the centre is brighter than its surroundings, the neuron responds strongly.
-* If the centre is darker, an OFF-centre/ON-surround neuron responds strongly.
-
-If the surround had the same effect as the centre, the neuron would mainly average nearby light—a blurring operation. Giving the surround the opposite effect instead performs a spatial comparison and emphasizes changes.
-
-This achieves several useful functions:
-
-* **Edge detection:** object boundaries produce large local brightness differences.
-* **Resistance to overall illumination:** a uniformly brighter scene affects centre and surround similarly and largely cancels out.
-* **Efficient encoding:** neighbouring image values are usually similar, so transmitting mainly their differences reduces redundant information.
-* **Detection of both polarities:** ON-centre cells detect brightness increases; OFF-centre cells detect decreases.
-
-Biologically, this structure arises from lateral connections in retinal circuitry, especially involving horizontal cells. Mach bands are essentially a side effect of this useful contrast-enhancement system: it sometimes exaggerates a real luminance gradient into illusory bright and dark bands.
-
-
+Uniform illumination largely cancels, while local differences produce a strong response. This enhances edges and reduces redundant brightness information.
 :::
 
-g) 
+### g) CIE chromaticity diagram
 
-### Task 2(g)
+#### i) Gamut of $n$ primaries
 
-### Task 2(g)
+The gamut is the **convex hull** of the primaries: a convex polygon with at most $n$ vertices; three primaries usually form a triangle.
 
-**i)** For $n$ additive primary colors, the display gamut is the **convex hull** of their chromaticity coordinates. In two-dimensional chromaticity space, this is a convex polygon with at most $n$ vertices; three primaries normally produce a triangle.
+#### ii) Spectral colors
 
-**ii)** Spectral, meaning monochromatic, colors lie on the **curved horseshoe-shaped boundary**, called the spectral locus. The straight lower boundary between $E$ and $F$ is excluded.
+Monochromatic colors lie on the curved **spectral locus**. The straight segment $EF$ is excluded.
 
-**iii)** The straight boundary from $E$ to $F$ is the **line of purples**. Purple colors are not spectral colors; they are additive mixtures of the red and violet colors at the two endpoints. Mixtures of two colors lie on the straight line segment connecting their chromaticity coordinates.
+#### iii) Line of purples
 
-**iv)** $C$, located approximately at $x=y=\frac13$, represents achromatic **white**. Because $C$ lies on the segment between $A$ and $D$, it can be produced by mixing $A$ and $D$ in the appropriate proportions. Thus, $A$ and $D$ are complementary colors.
+The straight segment $EF$ contains additive mixtures of the red and violet endpoints. These purples are not monochromatic; mixtures of two colors lie on the line connecting them.
 
-**v)** $B$ also lies on the segment between $A$ and $D$, so it is an additive mixture of them. Since $B$ lies between $A$ and the white point $C$, it can also be understood as a less saturated version of $A$: it has the same dominant hue as $A$, mixed with some of its complementary color $D$.
+#### iv) Point C and complementary colors
 
-
-::: {.callout-note}
-
-## Complementary colors in the horse-shoe diagram
-
-**Complementary colors** are two colors whose additive mixture, in suitable intensity proportions, produces a chosen achromatic white.
-
-In the chromaticity diagram, additive mixtures of two colors lie on the straight segment connecting them. Therefore, to find a complementary color:
-
-1. Start at color $A$.
-2. Draw a line from $A$ through the chosen white point $C$.
-3. Extend it to the opposite side of the horseshoe boundary.
-4. The intersection point $D$ is the maximally saturated complementary color of $A$ relative to that white point.
-
-In the exam figure, $A$, $C$, and $D$ are collinear, with $C$ between $A$ and $D$. Hence a suitable mixture satisfies
+$C\approx(1/3,1/3)$ is achromatic white. Since $A,C,D$ are collinear and $C$ lies between $A$ and $D$, suitable proportions of $A$ and $D$ produce white:
 
 $$
-C=(1-t)A+tD,
+C=(1-t)A+tD.
 $$
 
-so $A$ and $D$ are complementary. They do not normally need to be mixed in equal amounts: equal proportions occur only if $C$ is exactly the midpoint of $A$ and $D$.
+Thus $A$ and $D$ are complementary relative to white point $C$.
 
-The complementary point may lie either on the curved spectral locus or on the straight line of purples. Thus, the complement of a spectral color is not necessarily another spectral color.
+#### v) Relation between A, B, and D
 
-A revised answer for **(iv)** would be:
+$B$ lies on segment $AD$, so it is an additive mixture of $A$ and $D$. Because it lies between $A$ and white point $C$, it is a less saturated version of $A$.
 
-> $C$, located approximately at $x=y=\frac13$, represents achromatic white. Since $C$ lies on the line segment connecting $A$ and $D$, an additive mixture of $A$ and $D$ in suitable proportions produces white. Therefore, $A$ and $D$ are complementary colors relative to the white point $C$.
+## Task 3 — Ray Tracing
 
+### a.i) Ray generation
 
-:::
-
-## Task 3
-
-a) explain 
-   i) ray generation
-    
-**Ray generation** is the construction of a primary viewing ray for each pixel or image sample. In the pinhole-camera model, the ray begins at the camera position *e* and passes through the corresponding point *s* on the image plane:
+For every pixel sample, generate a primary ray from camera position $\mathbf e$ through the corresponding image-plane point $\mathbf s$:
 
 $$
-\mathbf r(t)=\mathbf e+t(\mathbf s-\mathbf e), \qquad t\geq 0.
+\mathbf r(t)=\mathbf e+t(\mathbf s-\mathbf e),\qquad t\geq0.
 $$
 
-The nearest scene intersection along this ray determines the surface visible at that pixel and is used to calculate its color.
-
-    ii) 
+The nearest intersection determines the visible surface and therefore the pixel color.

@@ -26,5 +26,6 @@ format:
     documentclass: scrreprt
 
 
-
+toc-depth: 4
+number-depth: 2
 
