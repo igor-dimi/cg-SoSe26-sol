@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; 2021 solutions – SoSe 26 Computer Graphics Solutions</title>
+<title>3&nbsp; ICG Mock Exam 2021 — Concise Solutions – SoSe 26 Computer Graphics Solutions</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -113,7 +113,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exam/2021.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">2021 solutions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exam/2021.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ICG Mock Exam 2021 — Concise Solutions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -162,7 +162,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exam/2021.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">2021 solutions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ICG Mock Exam 2021 — Concise Solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -175,16 +175,50 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#task-1" id="toc-task-1" class="nav-link active" data-scroll-target="#task-1"><span class="header-section-number">3.1</span> Task 1</a>
+  <li><a href="#task-1-fundamentals" id="toc-task-1-fundamentals" class="nav-link active" data-scroll-target="#task-1-fundamentals"><span class="header-section-number">3.1</span> Task 1 — Fundamentals</a>
+  <ul>
+  <li><a href="#a-raster-graphics-vs.-vector-graphics" id="toc-a-raster-graphics-vs.-vector-graphics" class="nav-link" data-scroll-target="#a-raster-graphics-vs.-vector-graphics">a) Raster graphics vs.&nbsp;vector graphics</a></li>
+  <li><a href="#b-concepts" id="toc-b-concepts" class="nav-link" data-scroll-target="#b-concepts">b) Concepts</a>
   <ul class="collapse">
-  <li><a href="#task-1h" id="toc-task-1h" class="nav-link" data-scroll-target="#task-1h"><span class="header-section-number">3.1.1</span> Task 1(h)</a></li>
+  <li><a href="#i-up-vector" id="toc-i-up-vector" class="nav-link" data-scroll-target="#i-up-vector">i) Up vector</a></li>
+  <li><a href="#ii-double-buffering" id="toc-ii-double-buffering" class="nav-link" data-scroll-target="#ii-double-buffering">ii) Double buffering</a></li>
+  <li><a href="#iii-view-frustum" id="toc-iii-view-frustum" class="nav-link" data-scroll-target="#iii-view-frustum">iii) View frustum</a></li>
+  <li><a href="#iv-backface-culling" id="toc-iv-backface-culling" class="nav-link" data-scroll-target="#iv-backface-culling">iv) Backface culling</a></li>
   </ul></li>
-  <li><a href="#task-2-color" id="toc-task-2-color" class="nav-link" data-scroll-target="#task-2-color"><span class="header-section-number">3.2</span> Task 2 Color</a>
+  <li><a href="#c-vertex-normals-and-degenerate-triangles" id="toc-c-vertex-normals-and-degenerate-triangles" class="nav-link" data-scroll-target="#c-vertex-normals-and-degenerate-triangles">c) Vertex normals and degenerate triangles</a></li>
+  <li><a href="#d-sharp-edges-with-gouraud-and-phong-shading" id="toc-d-sharp-edges-with-gouraud-and-phong-shading" class="nav-link" data-scroll-target="#d-sharp-edges-with-gouraud-and-phong-shading">d) Sharp edges with Gouraud and Phong shading</a></li>
+  <li><a href="#e-projection-types" id="toc-e-projection-types" class="nav-link" data-scroll-target="#e-projection-types">e) Projection types</a></li>
+  <li><a href="#f-aliasing" id="toc-f-aliasing" class="nav-link" data-scroll-target="#f-aliasing">f) Aliasing</a></li>
+  <li><a href="#g-perspective-division-and-dehomogenization" id="toc-g-perspective-division-and-dehomogenization" class="nav-link" data-scroll-target="#g-perspective-division-and-dehomogenization">g) Perspective division and dehomogenization</a></li>
+  <li><a href="#h-rendering-equation" id="toc-h-rendering-equation" class="nav-link" data-scroll-target="#h-rendering-equation">h) Rendering equation</a>
   <ul class="collapse">
-  <li><a href="#task-2g" id="toc-task-2g" class="nav-link" data-scroll-target="#task-2g"><span class="header-section-number">3.2.1</span> Task 2(g)</a></li>
-  <li><a href="#task-2g-1" id="toc-task-2g-1" class="nav-link" data-scroll-target="#task-2g-1"><span class="header-section-number">3.2.2</span> Task 2(g)</a></li>
+  <li><a href="#i-components" id="toc-i-components" class="nav-link" data-scroll-target="#i-components">i) Components</a></li>
+  <li><a href="#ii-name-and-dimensionality-of-f" id="toc-ii-name-and-dimensionality-of-f" class="nav-link" data-scroll-target="#ii-name-and-dimensionality-of-f">ii) Name and dimensionality of <span class="math inline">\(f\)</span></a></li>
+  <li><a href="#iii-isotropic-brdf" id="toc-iii-isotropic-brdf" class="nav-link" data-scroll-target="#iii-isotropic-brdf">iii) Isotropic BRDF</a></li>
+  <li><a href="#iv-recursion" id="toc-iv-recursion" class="nav-link" data-scroll-target="#iv-recursion">iv) Recursion</a></li>
   </ul></li>
-  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3"><span class="header-section-number">3.3</span> Task 3</a></li>
+  </ul></li>
+  <li><a href="#task-2-color" id="toc-task-2-color" class="nav-link" data-scroll-target="#task-2-color"><span class="header-section-number">3.2</span> Task 2 — Color</a>
+  <ul>
+  <li><a href="#a-role-of-k-in-cmyk" id="toc-a-role-of-k-in-cmyk" class="nav-link" data-scroll-target="#a-role-of-k-in-cmyk">a) Role of K in CMYK</a></li>
+  <li><a href="#b-missing-dimension-in-the-chromaticity-diagram" id="toc-b-missing-dimension-in-the-chromaticity-diagram" class="nav-link" data-scroll-target="#b-missing-dimension-in-the-chromaticity-diagram">b) Missing dimension in the chromaticity diagram</a></li>
+  <li><a href="#c-luminance-sensitivity-and-compression" id="toc-c-luminance-sensitivity-and-compression" class="nav-link" data-scroll-target="#c-luminance-sensitivity-and-compression">c) Luminance sensitivity and compression</a></li>
+  <li><a href="#d-macadam-ellipses" id="toc-d-macadam-ellipses" class="nav-link" data-scroll-target="#d-macadam-ellipses">d) MacAdam ellipses</a></li>
+  <li><a href="#e-metamerism" id="toc-e-metamerism" class="nav-link" data-scroll-target="#e-metamerism">e) Metamerism</a></li>
+  <li><a href="#f-mach-bands" id="toc-f-mach-bands" class="nav-link" data-scroll-target="#f-mach-bands">f) Mach bands</a></li>
+  <li><a href="#g-cie-chromaticity-diagram" id="toc-g-cie-chromaticity-diagram" class="nav-link" data-scroll-target="#g-cie-chromaticity-diagram">g) CIE chromaticity diagram</a>
+  <ul class="collapse">
+  <li><a href="#i-gamut-of-n-primaries" id="toc-i-gamut-of-n-primaries" class="nav-link" data-scroll-target="#i-gamut-of-n-primaries">i) Gamut of <span class="math inline">\(n\)</span> primaries</a></li>
+  <li><a href="#ii-spectral-colors" id="toc-ii-spectral-colors" class="nav-link" data-scroll-target="#ii-spectral-colors">ii) Spectral colors</a></li>
+  <li><a href="#iii-line-of-purples" id="toc-iii-line-of-purples" class="nav-link" data-scroll-target="#iii-line-of-purples">iii) Line of purples</a></li>
+  <li><a href="#iv-point-c-and-complementary-colors" id="toc-iv-point-c-and-complementary-colors" class="nav-link" data-scroll-target="#iv-point-c-and-complementary-colors">iv) Point C and complementary colors</a></li>
+  <li><a href="#v-relation-between-a-b-and-d" id="toc-v-relation-between-a-b-and-d" class="nav-link" data-scroll-target="#v-relation-between-a-b-and-d">v) Relation between A, B, and D</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#task-3-ray-tracing" id="toc-task-3-ray-tracing" class="nav-link" data-scroll-target="#task-3-ray-tracing"><span class="header-section-number">3.3</span> Task 3 — Ray Tracing</a>
+  <ul>
+  <li><a href="#a.i-ray-generation" id="toc-a.i-ray-generation" class="nav-link" data-scroll-target="#a.i-ray-generation">a.i) Ray generation</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -193,7 +227,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">2021 solutions</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ICG Mock Exam 2021 — Concise Solutions</span></h1>
 </div>
 
 
@@ -210,260 +244,221 @@ window.Quarto = {
 </header>
 
 
-<section id="task-1" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="task-1"><span class="header-section-number">3.1</span> Task 1</h2>
-<ol type="a">
-<li><p>raster graphics vs vector graphics:</p></li>
-<li><p>explain &amp; motivate following:</p>
-<ol type="i">
-<li><p>Up vector:</p>
-<p>The <strong>up vector</strong> specifies which direction should appear upward in the camera image. Together with the viewing direction, it determines the camera coordinate system and removes the otherwise undetermined rotation around the viewing axis (camera roll). It must not be parallel to the viewing direction.</p></li>
-<li><p><strong>Double buffering</strong>:</p>
-<p>Yes—the main relevant slide is <strong>CG06_1, slide 129</strong>; slide 130 extends it to stereoscopic rendering.</p>
-<p><strong>Double buffering:</strong> Two color buffers are used. The <strong>front buffer</strong> contains the complete image currently displayed, while the next frame is rendered invisibly into the <strong>back buffer</strong>. When rendering is finished, the buffers are swapped. This prevents incomplete, partially rendered images from being displayed and decouples rendering from the screen refresh.</p></li>
-<li></li>
-<li><p><strong>backface culling</strong>: <strong>Backface culling:</strong> For each triangle, its front and back faces are distinguished, commonly using the order of its projected vertices: counterclockwise winding usually indicates a front face. Triangles facing away from the camera are discarded before rasterization. For closed meshes, these back faces are normally hidden by front faces anyway, so culling them avoids unnecessary rendering work. It must be disabled or adjusted when viewing a mesh from the inside or rendering two-sided surfaces.</p></li>
-</ol></li>
-<li><p>explain how vertec normals can be computed from a given mesh. In that context explain the issues that can arise from degenerate triangles</p>
-<p>For every triangle, compute its face normal using the cross product of two edges,</p>
+<section id="task-1-fundamentals" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="task-1-fundamentals"><span class="header-section-number">3.1</span> Task 1 — Fundamentals</h2>
+<section id="a-raster-graphics-vs.-vector-graphics" class="level3">
+<h3 class="anchored" data-anchor-id="a-raster-graphics-vs.-vector-graphics">a) Raster graphics vs.&nbsp;vector graphics</h3>
+<p><em>Not yet completed.</em></p>
+</section>
+<section id="b-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="b-concepts">b) Concepts</h3>
+<section id="i-up-vector" class="level4">
+<h4 class="anchored" data-anchor-id="i-up-vector">i) Up vector</h4>
+<p>The <strong>up vector</strong> specifies which direction appears upward in the camera image. Together with the view direction, it fixes the camera coordinate system and removes ambiguity about camera roll. It must not be parallel to the view direction.</p>
+</section>
+<section id="ii-double-buffering" class="level4">
+<h4 class="anchored" data-anchor-id="ii-double-buffering">ii) Double buffering</h4>
+<p>The <strong>front buffer</strong> displays the current image while the next frame is rendered into the invisible <strong>back buffer</strong>. After rendering, the buffers are swapped. This prevents incomplete frames and decouples rendering from screen refresh.</p>
+</section>
+<section id="iii-view-frustum" class="level4">
+<h4 class="anchored" data-anchor-id="iii-view-frustum">iii) View frustum</h4>
+<p>The <strong>view frustum</strong> is the region visible to the camera, bounded by left, right, top, bottom, near, and far planes. It is a truncated pyramid for perspective projection and a cuboid for orthographic projection. Geometry outside it is clipped; projection maps it to the normalized unit cube.</p>
+</section>
+<section id="iv-backface-culling" class="level4">
+<h4 class="anchored" data-anchor-id="iv-backface-culling">iv) Backface culling</h4>
+<p>Triangles facing away from the camera are discarded, usually based on vertex winding. For closed meshes these backfaces are hidden anyway, so culling saves rasterization work. It is unsuitable for visible interiors or two-sided surfaces.</p>
+</section>
+</section>
+<section id="c-vertex-normals-and-degenerate-triangles" class="level3">
+<h3 class="anchored" data-anchor-id="c-vertex-normals-and-degenerate-triangles">c) Vertex normals and degenerate triangles</h3>
+<p>For each triangle, compute its face normal:</p>
 <p><span class="math display">\[
 \mathbf n_f=(\mathbf p_2-\mathbf p_1)\times(\mathbf p_3-\mathbf p_1).
 \]</span></p>
-<p>For each vertex, sum the normals of all adjacent faces—optionally weighted by their areas or corner angles—and normalize the resulting vector to obtain the vertex normal.</p>
-<p>If a triangle has a zero-length edge, its cross product is the zero vector. This vector cannot be normalized and may produce undefined values that contaminate the vertex-normal calculation. Such degenerate triangles should therefore be detected and ignored or removed.</p></li>
-<li><p>rendering sharp edges can be done by introducing multiple normal per vertex. Does this work equally well for giroud and phong</p></li>
-</ol>
-<p>The approach works for both methods, but not with equal shading quality:</p>
+<p>At each vertex, sum adjacent face normals—optionally area- or angle-weighted—and normalize. A zero-length edge yields a zero cross product, which cannot be normalized; degenerate triangles must therefore be ignored or removed.</p>
+</section>
+<section id="d-sharp-edges-with-gouraud-and-phong-shading" class="level3">
+<h3 class="anchored" data-anchor-id="d-sharp-edges-with-gouraud-and-phong-shading">d) Sharp edges with Gouraud and Phong shading</h3>
+<p>Multiple normals preserve a normal discontinuity across a sharp edge in both methods. <strong>Gouraud shading</strong> computes and interpolates vertex colors, so it may miss lighting effects between vertices. <strong>Phong shading</strong> interpolates the separate normals and evaluates illumination per fragment, giving more accurate results at higher cost.</p>
+</section>
+<section id="e-projection-types" class="level3">
+<h3 class="anchored" data-anchor-id="e-projection-types">e) Projection types</h3>
 <ul>
-<li><p><strong>Gouraud shading:</strong> Illumination is calculated at each vertex. The different normals assigned to the same geometric position produce different vertex colors for the adjacent faces. These colors are interpolated separately within each face, preserving the discontinuity at the sharp edge. However, lighting effects between vertices—especially small specular highlights—may be missed.</p></li>
-<li><p><strong>Phong shading:</strong> The separate normals are interpolated within their respective faces, and illumination is calculated for every fragment. The normal remains discontinuous across the edge, while lighting within each face is evaluated more accurately.</p></li>
+<li><strong>Orthographic projection:</strong> parallel projection rays; size does not decrease with distance and parallel lines remain parallel.</li>
+<li><strong>Perspective projection:</strong> rays meet at the projection centre; distant objects appear smaller.</li>
 </ul>
-<p>Thus, both can represent sharp edges, but Phong shading generally renders their illumination more accurately, at greater computational cost. <a href="https://www.cs.unc.edu/~gb/Pubs/siggraph86.html">Phong’s per-pixel shading formulation</a> also reflects this accuracy–cost trade-off.</p>
-<ol start="5" type="a">
-<li><p>two projection types, explain the difference:</p>
-<p>The two widely used projection types are:</p>
-<ul>
-<li><strong>Orthographic (parallel) projection:</strong> Projection rays are parallel. An object’s apparent size does not decrease with distance, and parallel lines remain parallel.</li>
-<li><strong>Perspective projection:</strong> Projection rays meet at the camera’s projection centre. Distant objects appear smaller, producing perspective foreshortening and a more realistic impression of depth.</li>
-</ul></li>
-<li><p>explain the reasons for aliasing and artifacst it leads to</p></li>
-</ol>
-<p><strong>Aliasing</strong> is caused by sampling a continuous image or signal at an insufficient spatial or temporal frequency. In particular, if the sampling frequency is not greater than twice the highest signal frequency, high-frequency details are incorrectly represented as lower, artificial frequencies. Sharp object boundaries are especially problematic because they contain very high frequencies.</p>
-<p>Typical artifacts include <strong>jagged or staircase-shaped edges</strong>, <strong>Moiré patterns</strong>, distorted fine details, and flickering or crawling patterns in animations.</p>
-<ol start="7" type="a">
-<li>role of perspective divison and its relation to dehomogenizattion</li>
-</ol>
-<p>After the projection transformation, a point is represented in homogeneous clip coordinates as</p>
+</section>
+<section id="f-aliasing" class="level3">
+<h3 class="anchored" data-anchor-id="f-aliasing">f) Aliasing</h3>
+<p>Aliasing occurs when a signal is sampled below the Nyquist rate. High frequencies are then represented as false lower frequencies. Artifacts include jaggies, Moiré patterns, distorted detail, and temporal flickering.</p>
+</section>
+<section id="g-perspective-division-and-dehomogenization" class="level3">
+<h3 class="anchored" data-anchor-id="g-perspective-division-and-dehomogenization">g) Perspective division and dehomogenization</h3>
+<p>After projection, a point has homogeneous clip coordinates</p>
 <p><span class="math display">\[
 (x_h,y_h,z_h,w_h).
 \]</span></p>
-<p><strong>Perspective division</strong> divides the first three coordinates by (w_h):</p>
+<p>Perspective division gives</p>
 <p><span class="math display">\[
 (x_h,y_h,z_h,w_h)
 \longmapsto
 \left(\frac{x_h}{w_h},\frac{y_h}{w_h},\frac{z_h}{w_h}\right).
 \]</span></p>
-<p>Since (w_h) depends on the point’s depth, this division makes distant objects appear smaller and maps the perspective view frustum to the normalized unit cube.</p>
-<p>Perspective division is therefore precisely the <strong>dehomogenization</strong> performed after the projection transformation; in the course, this complete step is also called the <strong>normalization transformation</strong>.</p>
-<ol start="8" type="a">
-<li>rendering equation
-<ol type="i">
-<li>explain different parts of the rendering equation</li>
-<li>how if <span class="math inline">\(f\)</span> typically named, how many parameters (dimensions) does it have?</li>
-<li>how many parameters, dimensions does the isotropic version of <span class="math inline">\(f\)</span> have</li>
-<li>explain why this equations</li>
-</ol></li>
-</ol>
-<section id="task-1h" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="task-1h"><span class="header-section-number">3.1.1</span> Task 1(h)</h3>
-<p>The rendering equation is</p>
+<p>Because <span class="math inline">\(w_h\)</span> depends on depth in perspective projection, this produces foreshortening and maps the frustum to normalized device coordinates. It is precisely dehomogenization after projection, also called the normalization transformation.</p>
+</section>
+<section id="h-rendering-equation" class="level3">
+<h3 class="anchored" data-anchor-id="h-rendering-equation">h) Rendering equation</h3>
 <p><span class="math display">\[
+L(\mathbf x,\omega)=E(\mathbf x,\omega)
++\int_{\Omega^+}
+f(\mathbf x,\omega_i\rightarrow\omega)
+L_{\mathrm{in}}(\mathbf x,\omega_i)
+\cos\theta_i\,d\omega_i.
 \]</span></p>
-<p><strong>(i) Components</strong></p>
+<section id="i-components" class="level4">
+<h4 class="anchored" data-anchor-id="i-components">i) Components</h4>
 <ul>
-<li><strong>(A) <span class="math inline">\(L(\mathbf x,\omega)\)</span>:</strong> total outgoing radiance leaving point <span class="math inline">\(\mathbf x\)</span> in direction <span class="math inline">\(\omega\)</span>.</li>
-<li><strong>(B) <span class="math inline">\(E(\mathbf x,\omega)\)</span>:</strong> radiance emitted by the surface itself in direction <span class="math inline">\(\omega\)</span>.</li>
-<li><strong>(C) <span class="math inline">\(f(\mathbf x,\omega_i\rightarrow\omega)\)</span>:</strong> describes what proportion of light arriving from <span class="math inline">\(\omega_i\)</span> is reflected toward <span class="math inline">\(\omega\)</span>. The integral sums reflected light arriving from all directions in the positive hemisphere <span class="math inline">\(\Omega^+\)</span>. The factor <span class="math inline">\(\cos\theta_i\)</span> accounts for the smaller effective surface area presented to light arriving at a grazing angle.</li>
+<li><strong>A — <span class="math inline">\(L(\mathbf x,\omega)\)</span>:</strong> outgoing radiance from <span class="math inline">\(\mathbf x\)</span> in direction <span class="math inline">\(\omega\)</span>.</li>
+<li><strong>B — <span class="math inline">\(E(\mathbf x,\omega)\)</span>:</strong> emitted radiance.</li>
+<li><strong>C — <span class="math inline">\(f(\mathbf x,\omega_i\rightarrow\omega)\)</span>:</strong> fraction of incoming light reflected toward <span class="math inline">\(\omega\)</span>.</li>
+<li><strong>D — <span class="math inline">\(L_{\mathrm{in}}(\mathbf x,\omega_i)\)</span>:</strong> incoming radiance from <span class="math inline">\(\omega_i\)</span>.</li>
 </ul>
-<p><strong>(ii)</strong> <span class="math inline">\(f\)</span> is called the <strong>bidirectional reflectance distribution function (BRDF)</strong>. At a fixed surface point, it is four-dimensional: two angles specify the incoming direction and two specify the outgoing direction,</p>
+<p>The integral sums all incoming directions in the positive hemisphere; <span class="math inline">\(\cos\theta_i\)</span> accounts for projected surface area.</p>
+</section>
+<section id="ii-name-and-dimensionality-of-f" class="level4">
+<h4 class="anchored" data-anchor-id="ii-name-and-dimensionality-of-f">ii) Name and dimensionality of <span class="math inline">\(f\)</span></h4>
+<p><span class="math inline">\(f\)</span> is the <strong>bidirectional reflectance distribution function (BRDF)</strong>. At a fixed point it is four-dimensional:</p>
 <p><span class="math display">\[
 f(\theta_i,\phi_i,\theta_o,\phi_o).
 \]</span></p>
-<p><strong>(iii)</strong> An isotropic BRDF is invariant under simultaneous rotation of both directions around the surface normal. Only the relative azimuth matters, so it is three-dimensional:</p>
+</section>
+<section id="iii-isotropic-brdf" class="level4">
+<h4 class="anchored" data-anchor-id="iii-isotropic-brdf">iii) Isotropic BRDF</h4>
+<p>Rotational invariance around the normal removes one angular degree of freedom, leaving three dimensions:</p>
 <p><span class="math display">\[
 f(\theta_i,\theta_o,\phi_i-\phi_o).
 \]</span></p>
-<p><strong>(iv)</strong> The equation is recursive because the incoming radiance at <span class="math inline">\(\mathbf x\)</span> is outgoing radiance from another visible surface point. That outgoing radiance is itself determined by the rendering equation and depends on light arriving there from still other surfaces. In ray tracing, this leads to recursively tracing secondary rays until a light source is reached or a termination condition is applied.</p>
+</section>
+<section id="iv-recursion" class="level4">
+<h4 class="anchored" data-anchor-id="iv-recursion">iv) Recursion</h4>
+<p>Incoming radiance at <span class="math inline">\(\mathbf x\)</span> is outgoing radiance from the next visible surface point. Evaluating it requires the same equation there, producing recursive secondary rays.</p>
+</section>
 </section>
 </section>
 <section id="task-2-color" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="task-2-color"><span class="header-section-number">3.2</span> Task 2 Color</h2>
-<ol type="a">
-<li>What is the fole of K in CMYK, motivate it.</li>
-</ol>
-<p>In <strong>CMYK</strong>, (K) is the <strong>key (black) ink</strong>. It replaces the common black component of cyan, magenta, and yellow,</p>
+<h2 data-number="3.2" class="anchored" data-anchor-id="task-2-color"><span class="header-section-number">3.2</span> Task 2 — Color</h2>
+<section id="a-role-of-k-in-cmyk" class="level3">
+<h3 class="anchored" data-anchor-id="a-role-of-k-in-cmyk">a) Role of K in CMYK</h3>
+<p><span class="math inline">\(K\)</span> is <strong>key/black ink</strong>. It replaces the common black component</p>
 <p><span class="math display">\[
 K=\min(C,M,Y),
 \]</span></p>
-<p>because combining CMY inks does not produce a clean, fully covering black in practice. Using separate black ink also improves contrast and saves colored ink.</p>
-<ol start="2" type="a">
-<li>The chromaticity diagram omits <strong>brightness (luminance), represented by (Y)</strong>. It displays only the chromaticity coordinates <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, which describe color independent of brightness.</li>
-</ol>
-<p>Note that the omitted quantity is not lowercase <span class="math inline">\(z\)</span>, because <span class="math inline">\(z=1-x-y\)</span> is already determined by <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<p>because CMY inks do not produce a clean covering black. Separate black improves contrast and saves colored ink.</p>
+</section>
+<section id="b-missing-dimension-in-the-chromaticity-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="b-missing-dimension-in-the-chromaticity-diagram">b) Missing dimension in the chromaticity diagram</h3>
+<p>The diagram omits <strong>luminance <span class="math inline">\(Y\)</span></strong> and displays only chromaticity <span class="math inline">\((x,y)\)</span>. Lowercase <span class="math inline">\(z\)</span> is not an independent missing dimension because <span class="math inline">\(z=1-x-y\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Review of X, Y Z
+<span class="screen-reader-only">Note</span>Recall: CIE XYZ and xyY
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>(X), (Y), and (Z) are three <strong>tristimulus values</strong>: numerical coordinates describing a perceived color in the CIE XYZ color space.</p>
-<p>They are computed from the light spectrum (S()) using the CIE standard-observer color-matching functions:</p>
+<p><span class="math inline">\(X,Y,Z\)</span> are tristimulus values obtained from the spectrum <span class="math inline">\(S(\lambda)\)</span>:</p>
 <p><span class="math display">\[
-X=\int S(\lambda),\overline{x}(\lambda),d\lambda,
+X=\int S(\lambda)\,\overline{x}(\lambda)\,d\lambda,
 \qquad
-Y=\int S(\lambda),\overline{y}(\lambda),d\lambda,
+Y=\int S(\lambda)\,\overline{y}(\lambda)\,d\lambda,
 \qquad
-Z=\int S(\lambda),\overline{z}(\lambda),d\lambda.
+Z=\int S(\lambda)\,\overline{z}(\lambda)\,d\lambda.
 \]</span></p>
-<p>Their roles are:</p>
-<ul>
-<li><span class="math inline">\(Y\)</span> was deliberately designed to represent <strong>luminance</strong>, or perceived brightness.</li>
-<li><span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span>, together with <span class="math inline">\(Y\)</span>, carry the remaining chromatic information.</li>
-</ul>
-<p>They should not be interpreted simply as red, green, and blue intensities. XYZ uses mathematically defined, partly “imaginary” primaries chosen so that visible colors can be represented conveniently with nonnegative values.</p>
-<p>The chromaticity coordinates remove overall intensity through normalization:</p>
+<p><span class="math inline">\(Y\)</span> represents luminance. Chromaticity is</p>
 <p><span class="math display">\[
-x=\frac{X}{X+Y+Z},
-\qquad
-y=\frac{Y}{X+Y+Z},
-\qquad
+x=\frac{X}{X+Y+Z},\qquad
+y=\frac{Y}{X+Y+Z},\qquad
 z=\frac{Z}{X+Y+Z}=1-x-y.
 \]</span></p>
-<p>Thus <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> describe chromaticity, while uppercase <span class="math inline">\(Y\)</span> retains the brightness information.</p>
 </div>
 </div>
-<ol start="3" type="a">
-<li>is the human visual system more sensitive to color variation or brightness vareiation? Explain how this motivates image compression approaches?</li>
-</ol>
-<p>The human visual system is more sensitive to variations in <strong>luminance (brightness)</strong> than to variations in <strong>chrominance (color)</strong>.</p>
-<p>Image compression therefore commonly converts RGB into separate luminance and chrominance components, such as <span class="math inline">\(Y\)</span>, <span class="math inline">\(C_b\)</span>, and <span class="math inline">\(C_r\)</span>. The luminance channel <span class="math inline">\(Y\)</span> is retained at higher resolution and precision, while the chrominance channels can be subsampled or quantized more strongly. This reduces the data size while causing relatively little perceptible loss of image quality.</p>
-<ol start="4" type="a">
-<li>MacAdam ellipses? how would they look like for a perfectly perceptually uniform color space?</li>
-</ol>
-<p><strong>MacAdam ellipses</strong> represent regions around reference colors in which color differences are not perceptible, or are below a chosen just-noticeable-difference threshold. Colors inside an ellipse appear indistinguishable from the color at its centre.</p>
-<p>In the CIE (xy) diagram, their different sizes and orientations show that equal geometric distances do not correspond to equal perceived color differences. In a perfectly perceptually uniform color space, all MacAdam ellipses would become <strong>circles of equal size</strong>, independent of their position.</p>
-<ol start="5" type="a">
-<li>what is metamerism</li>
-</ol>
-<p><strong>Metamerism</strong> means that two physically different spectral distributions can produce the same responses in the three types of cone cells and therefore be perceived as the same color. Such spectra are called <strong>metamers</strong>.</p>
-<ol start="6" type="a">
-<li><p>explain Mach bands, including the role of receptive fields?</p>
-<p><strong>Mach bands</strong> are illusory bright and dark bands perceived near boundaries or changes in a luminance gradient, even though those bands are not present in the actual intensity distribution.</p>
-<p>They arise from <strong>centre-surround receptive fields</strong> and lateral inhibition in the visual system. A receptor’s response depends not only on light at its centre but also on the brightness of the surrounding region. Near a boundary:</p>
-<ul>
-<li>on the bright side, part of the surrounding region is darker, causing less inhibition and an exaggerated bright response;</li>
-<li>on the dark side, part of the surrounding region is brighter, causing stronger inhibition and an exaggerated dark response.</li>
-</ul>
-<p>The visual system therefore enhances the luminance gradient, making boundaries easier to detect but producing the Mach-band illusion.</p></li>
-</ol>
+</section>
+<section id="c-luminance-sensitivity-and-compression" class="level3">
+<h3 class="anchored" data-anchor-id="c-luminance-sensitivity-and-compression">c) Luminance sensitivity and compression</h3>
+<p>Vision is more sensitive to <strong>luminance</strong> than to chrominance variation. Compression therefore preserves luminance at higher resolution while subsampling or more strongly quantizing chrominance channels, e.g.&nbsp;<span class="math inline">\(C_b\)</span> and <span class="math inline">\(C_r\)</span> in YCbCr.</p>
+</section>
+<section id="d-macadam-ellipses" class="level3">
+<h3 class="anchored" data-anchor-id="d-macadam-ellipses">d) MacAdam ellipses</h3>
+<p>A MacAdam ellipse contains colors indistinguishable from its centre at a chosen threshold. Their varying sizes and orientations in CIE <span class="math inline">\(xy\)</span> show perceptual non-uniformity. In a perfectly uniform color space they would be equal-sized circles.</p>
+</section>
+<section id="e-metamerism" class="level3">
+<h3 class="anchored" data-anchor-id="e-metamerism">e) Metamerism</h3>
+<p><strong>Metamerism:</strong> different spectra produce the same cone responses and are therefore perceived as the same color.</p>
+</section>
+<section id="f-mach-bands" class="level3">
+<h3 class="anchored" data-anchor-id="f-mach-bands">f) Mach bands</h3>
+<p>Mach bands are illusory bright and dark bands near changes in a luminance gradient. Centre-surround receptive fields and lateral inhibition exaggerate local contrast: the bright side appears brighter and the dark side darker.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>functions of centre-surround structure
+<span class="screen-reader-only">Note</span>Recall: centre-surround function
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The complementary surround makes the receptive field measure <strong>local contrast</strong>, rather than simply absolute light intensity.</p>
-<p>An ON-centre/OFF-surround receptive field behaves approximately like</p>
+<p>An ON-centre/OFF-surround field behaves approximately as</p>
 <p><span class="math display">\[
-R \approx I_{\text{centre}}
--\operatorname{average}(I_{\text{surround}}).
+R\approx I_{\mathrm{centre}}
+-\operatorname{average}(I_{\mathrm{surround}}).
 \]</span></p>
-<p>Therefore:</p>
-<ul>
-<li>If the entire region is uniformly bright, centre and surround largely cancel, producing only a weak response.</li>
-<li>If the centre is brighter than its surroundings, the neuron responds strongly.</li>
-<li>If the centre is darker, an OFF-centre/ON-surround neuron responds strongly.</li>
-</ul>
-<p>If the surround had the same effect as the centre, the neuron would mainly average nearby light—a blurring operation. Giving the surround the opposite effect instead performs a spatial comparison and emphasizes changes.</p>
-<p>This achieves several useful functions:</p>
-<ul>
-<li><strong>Edge detection:</strong> object boundaries produce large local brightness differences.</li>
-<li><strong>Resistance to overall illumination:</strong> a uniformly brighter scene affects centre and surround similarly and largely cancels out.</li>
-<li><strong>Efficient encoding:</strong> neighbouring image values are usually similar, so transmitting mainly their differences reduces redundant information.</li>
-<li><strong>Detection of both polarities:</strong> ON-centre cells detect brightness increases; OFF-centre cells detect decreases.</li>
-</ul>
-<p>Biologically, this structure arises from lateral connections in retinal circuitry, especially involving horizontal cells. Mach bands are essentially a side effect of this useful contrast-enhancement system: it sometimes exaggerates a real luminance gradient into illusory bright and dark bands.</p>
-</div>
-</div>
-<ol start="7" type="a">
-<li></li>
-</ol>
-<section id="task-2g" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="task-2g"><span class="header-section-number">3.2.1</span> Task 2(g)</h3>
-</section>
-<section id="task-2g-1" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="task-2g-1"><span class="header-section-number">3.2.2</span> Task 2(g)</h3>
-<p><strong>i)</strong> For <span class="math inline">\(n\)</span> additive primary colors, the display gamut is the <strong>convex hull</strong> of their chromaticity coordinates. In two-dimensional chromaticity space, this is a convex polygon with at most <span class="math inline">\(n\)</span> vertices; three primaries normally produce a triangle.</p>
-<p><strong>ii)</strong> Spectral, meaning monochromatic, colors lie on the <strong>curved horseshoe-shaped boundary</strong>, called the spectral locus. The straight lower boundary between <span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> is excluded.</p>
-<p><strong>iii)</strong> The straight boundary from <span class="math inline">\(E\)</span> to <span class="math inline">\(F\)</span> is the <strong>line of purples</strong>. Purple colors are not spectral colors; they are additive mixtures of the red and violet colors at the two endpoints. Mixtures of two colors lie on the straight line segment connecting their chromaticity coordinates.</p>
-<p><strong>iv)</strong> <span class="math inline">\(C\)</span>, located approximately at <span class="math inline">\(x=y=\frac13\)</span>, represents achromatic <strong>white</strong>. Because <span class="math inline">\(C\)</span> lies on the segment between <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span>, it can be produced by mixing <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span> in the appropriate proportions. Thus, <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span> are complementary colors.</p>
-<p><strong>v)</strong> <span class="math inline">\(B\)</span> also lies on the segment between <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span>, so it is an additive mixture of them. Since <span class="math inline">\(B\)</span> lies between <span class="math inline">\(A\)</span> and the white point <span class="math inline">\(C\)</span>, it can also be understood as a less saturated version of <span class="math inline">\(A\)</span>: it has the same dominant hue as <span class="math inline">\(A\)</span>, mixed with some of its complementary color <span class="math inline">\(D\)</span>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Complementary colors in the horse-shoe diagram
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Complementary colors</strong> are two colors whose additive mixture, in suitable intensity proportions, produces a chosen achromatic white.</p>
-<p>In the chromaticity diagram, additive mixtures of two colors lie on the straight segment connecting them. Therefore, to find a complementary color:</p>
-<ol type="1">
-<li>Start at color <span class="math inline">\(A\)</span>.</li>
-<li>Draw a line from <span class="math inline">\(A\)</span> through the chosen white point <span class="math inline">\(C\)</span>.</li>
-<li>Extend it to the opposite side of the horseshoe boundary.</li>
-<li>The intersection point <span class="math inline">\(D\)</span> is the maximally saturated complementary color of <span class="math inline">\(A\)</span> relative to that white point.</li>
-</ol>
-<p>In the exam figure, <span class="math inline">\(A\)</span>, <span class="math inline">\(C\)</span>, and <span class="math inline">\(D\)</span> are collinear, with <span class="math inline">\(C\)</span> between <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span>. Hence a suitable mixture satisfies</p>
-<p><span class="math display">\[
-C=(1-t)A+tD,
-\]</span></p>
-<p>so <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span> are complementary. They do not normally need to be mixed in equal amounts: equal proportions occur only if <span class="math inline">\(C\)</span> is exactly the midpoint of <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span>.</p>
-<p>The complementary point may lie either on the curved spectral locus or on the straight line of purples. Thus, the complement of a spectral color is not necessarily another spectral color.</p>
-<p>A revised answer for <strong>(iv)</strong> would be:</p>
-<blockquote class="blockquote">
-<p><span class="math inline">\(C\)</span>, located approximately at <span class="math inline">\(x=y=\frac13\)</span>, represents achromatic white. Since <span class="math inline">\(C\)</span> lies on the line segment connecting <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span>, an additive mixture of <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span> in suitable proportions produces white. Therefore, <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span> are complementary colors relative to the white point <span class="math inline">\(C\)</span>.</p>
-</blockquote>
+<p>Uniform illumination largely cancels, while local differences produce a strong response. This enhances edges and reduces redundant brightness information.</p>
 </div>
 </div>
 </section>
+<section id="g-cie-chromaticity-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="g-cie-chromaticity-diagram">g) CIE chromaticity diagram</h3>
+<section id="i-gamut-of-n-primaries" class="level4">
+<h4 class="anchored" data-anchor-id="i-gamut-of-n-primaries">i) Gamut of <span class="math inline">\(n\)</span> primaries</h4>
+<p>The gamut is the <strong>convex hull</strong> of the primaries: a convex polygon with at most <span class="math inline">\(n\)</span> vertices; three primaries usually form a triangle.</p>
 </section>
-<section id="task-3" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="task-3"><span class="header-section-number">3.3</span> Task 3</h2>
-<ol type="a">
-<li>explain
-<ol type="i">
-<li>ray generation</li>
-</ol></li>
-</ol>
-<p><strong>Ray generation</strong> is the construction of a primary viewing ray for each pixel or image sample. In the pinhole-camera model, the ray begins at the camera position <em>e</em> and passes through the corresponding point <em>s</em> on the image plane:</p>
+<section id="ii-spectral-colors" class="level4">
+<h4 class="anchored" data-anchor-id="ii-spectral-colors">ii) Spectral colors</h4>
+<p>Monochromatic colors lie on the curved <strong>spectral locus</strong>. The straight segment <span class="math inline">\(EF\)</span> is excluded.</p>
+</section>
+<section id="iii-line-of-purples" class="level4">
+<h4 class="anchored" data-anchor-id="iii-line-of-purples">iii) Line of purples</h4>
+<p>The straight segment <span class="math inline">\(EF\)</span> contains additive mixtures of the red and violet endpoints. These purples are not monochromatic; mixtures of two colors lie on the line connecting them.</p>
+</section>
+<section id="iv-point-c-and-complementary-colors" class="level4">
+<h4 class="anchored" data-anchor-id="iv-point-c-and-complementary-colors">iv) Point C and complementary colors</h4>
+<p><span class="math inline">\(C\approx(1/3,1/3)\)</span> is achromatic white. Since <span class="math inline">\(A,C,D\)</span> are collinear and <span class="math inline">\(C\)</span> lies between <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span>, suitable proportions of <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span> produce white:</p>
 <p><span class="math display">\[
-\mathbf r(t)=\mathbf e+t(\mathbf s-\mathbf e), \qquad t\geq 0.
+C=(1-t)A+tD.
 \]</span></p>
-<p>The nearest scene intersection along this ray determines the surface visible at that pixel and is used to calculate its color.</p>
-<pre><code>ii) </code></pre>
+<p>Thus <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span> are complementary relative to white point <span class="math inline">\(C\)</span>.</p>
+</section>
+<section id="v-relation-between-a-b-and-d" class="level4">
+<h4 class="anchored" data-anchor-id="v-relation-between-a-b-and-d">v) Relation between A, B, and D</h4>
+<p><span class="math inline">\(B\)</span> lies on segment <span class="math inline">\(AD\)</span>, so it is an additive mixture of <span class="math inline">\(A\)</span> and <span class="math inline">\(D\)</span>. Because it lies between <span class="math inline">\(A\)</span> and white point <span class="math inline">\(C\)</span>, it is a less saturated version of <span class="math inline">\(A\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="task-3-ray-tracing" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="task-3-ray-tracing"><span class="header-section-number">3.3</span> Task 3 — Ray Tracing</h2>
+<section id="a.i-ray-generation" class="level3">
+<h3 class="anchored" data-anchor-id="a.i-ray-generation">a.i) Ray generation</h3>
+<p>For every pixel sample, generate a primary ray from camera position <span class="math inline">\(\mathbf e\)</span> through the corresponding image-plane point <span class="math inline">\(\mathbf s\)</span>:</p>
+<p><span class="math display">\[
+\mathbf r(t)=\mathbf e+t(\mathbf s-\mathbf e),\qquad t\geq0.
+\]</span></p>
+<p>The nearest intersection determines the visible surface and therefore the pixel color.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
