@@ -111,3 +111,183 @@ f(\theta_i,\theta_o,\phi_i-\phi_o).
 $$
 
 **(iv)** The equation is recursive because the incoming radiance at $\mathbf x$ is outgoing radiance from another visible surface point. That outgoing radiance is itself determined by the rendering equation and depends on light arriving there from still other surfaces. In ray tracing, this leads to recursively tracing secondary rays until a light source is reached or a termination condition is applied.
+
+## Task 2 Color
+
+a) What is the fole of K in CMYK, motivate it. 
+
+In **CMYK**, (K) is the **key (black) ink**. It replaces the common black component of cyan, magenta, and yellow,
+
+$$
+K=\min(C,M,Y),
+$$
+
+because combining CMY inks does not produce a clean, fully covering black in practice. Using separate black ink also improves contrast and saves colored ink.
+
+b) The chromaticity diagram omits **brightness (luminance), represented by (Y)**. It displays only the chromaticity coordinates $x$ and $y$, which describe color independent of brightness.
+
+Note that the omitted quantity is not lowercase $z$, because $z=1-x-y$ is already determined by $x$ and $y$.
+
+
+::: {.callout-note}
+## Review of X, Y Z
+
+(X), (Y), and (Z) are three **tristimulus values**: numerical coordinates describing a perceived color in the CIE XYZ color space.
+
+They are computed from the light spectrum (S(\lambda)) using the CIE standard-observer color-matching functions:
+
+$$
+X=\int S(\lambda),\overline{x}(\lambda),d\lambda,
+\qquad
+Y=\int S(\lambda),\overline{y}(\lambda),d\lambda,
+\qquad
+Z=\int S(\lambda),\overline{z}(\lambda),d\lambda.
+$$
+
+Their roles are:
+
+* $Y$ was deliberately designed to represent **luminance**, or perceived brightness.
+* $X$ and $Z$, together with $Y$, carry the remaining chromatic information.
+
+They should not be interpreted simply as red, green, and blue intensities. XYZ uses mathematically defined, partly “imaginary” primaries chosen so that visible colors can be represented conveniently with nonnegative values.
+
+The chromaticity coordinates remove overall intensity through normalization:
+
+$$
+x=\frac{X}{X+Y+Z},
+\qquad
+y=\frac{Y}{X+Y+Z},
+\qquad
+z=\frac{Z}{X+Y+Z}=1-x-y.
+$$
+
+Thus $x$ and $y$ describe chromaticity, while uppercase $Y$ retains the brightness information.
+
+
+:::
+
+
+c) is the human visual system more sensitive to color variation
+or brightness vareiation? Explain how this motivates image compression approaches? 
+
+The human visual system is more sensitive to variations in **luminance (brightness)** than to variations in **chrominance (color)**.
+
+Image compression therefore commonly converts RGB into separate luminance and chrominance components, such as $Y$, $C_b$, and $C_r$. The luminance channel $Y$ is retained at higher resolution and precision, while the chrominance channels can be subsampled or quantized more strongly. This reduces the data size while causing relatively little perceptible loss of image quality.
+
+d) MacAdam ellipses? how would they look like for a perfectly
+perceptually uniform color space? 
+
+**MacAdam ellipses** represent regions around reference colors in which color differences are not perceptible, or are below a chosen just-noticeable-difference threshold. Colors inside an ellipse appear indistinguishable from the color at its centre.
+
+In the CIE (xy) diagram, their different sizes and orientations show that equal geometric distances do not correspond to equal perceived color differences. In a perfectly perceptually uniform color space, all MacAdam ellipses would become **circles of equal size**, independent of their position.
+
+e) what is metamerism
+
+**Metamerism** means that two physically different spectral distributions can produce the same responses in the three types of cone cells and therefore be perceived as the same color. Such spectra are called **metamers**.
+
+f) explain Mach bands, including the role of receptive fields?
+
+   **Mach bands** are illusory bright and dark bands perceived near boundaries or changes in a luminance gradient, even though those bands are not present in the actual intensity distribution.
+
+    They arise from **centre-surround receptive fields** and lateral inhibition in the visual system. A receptor’s response depends not only on light at its centre but also on the brightness of the surrounding region. Near a boundary:
+
+    * on the bright side, part of the surrounding region is darker, causing less inhibition and an exaggerated bright response;
+    * on the dark side, part of the surrounding region is brighter, causing stronger inhibition and an exaggerated dark response.
+
+    The visual system therefore enhances the luminance gradient, making boundaries easier to detect but producing the Mach-band illusion.
+
+
+::: {.callout-note}
+
+## functions of centre-surround structure
+
+The complementary surround makes the receptive field measure **local contrast**, rather than simply absolute light intensity.
+
+An ON-centre/OFF-surround receptive field behaves approximately like
+
+$$
+R \approx I_{\text{centre}}
+-\operatorname{average}(I_{\text{surround}}).
+$$
+
+Therefore:
+
+* If the entire region is uniformly bright, centre and surround largely cancel, producing only a weak response.
+* If the centre is brighter than its surroundings, the neuron responds strongly.
+* If the centre is darker, an OFF-centre/ON-surround neuron responds strongly.
+
+If the surround had the same effect as the centre, the neuron would mainly average nearby light—a blurring operation. Giving the surround the opposite effect instead performs a spatial comparison and emphasizes changes.
+
+This achieves several useful functions:
+
+* **Edge detection:** object boundaries produce large local brightness differences.
+* **Resistance to overall illumination:** a uniformly brighter scene affects centre and surround similarly and largely cancels out.
+* **Efficient encoding:** neighbouring image values are usually similar, so transmitting mainly their differences reduces redundant information.
+* **Detection of both polarities:** ON-centre cells detect brightness increases; OFF-centre cells detect decreases.
+
+Biologically, this structure arises from lateral connections in retinal circuitry, especially involving horizontal cells. Mach bands are essentially a side effect of this useful contrast-enhancement system: it sometimes exaggerates a real luminance gradient into illusory bright and dark bands.
+
+
+:::
+
+g) 
+
+### Task 2(g)
+
+### Task 2(g)
+
+**i)** For $n$ additive primary colors, the display gamut is the **convex hull** of their chromaticity coordinates. In two-dimensional chromaticity space, this is a convex polygon with at most $n$ vertices; three primaries normally produce a triangle.
+
+**ii)** Spectral, meaning monochromatic, colors lie on the **curved horseshoe-shaped boundary**, called the spectral locus. The straight lower boundary between $E$ and $F$ is excluded.
+
+**iii)** The straight boundary from $E$ to $F$ is the **line of purples**. Purple colors are not spectral colors; they are additive mixtures of the red and violet colors at the two endpoints. Mixtures of two colors lie on the straight line segment connecting their chromaticity coordinates.
+
+**iv)** $C$, located approximately at $x=y=\frac13$, represents achromatic **white**. Because $C$ lies on the segment between $A$ and $D$, it can be produced by mixing $A$ and $D$ in the appropriate proportions. Thus, $A$ and $D$ are complementary colors.
+
+**v)** $B$ also lies on the segment between $A$ and $D$, so it is an additive mixture of them. Since $B$ lies between $A$ and the white point $C$, it can also be understood as a less saturated version of $A$: it has the same dominant hue as $A$, mixed with some of its complementary color $D$.
+
+
+::: {.callout-note}
+
+## Complementary colors in the horse-shoe diagram
+
+**Complementary colors** are two colors whose additive mixture, in suitable intensity proportions, produces a chosen achromatic white.
+
+In the chromaticity diagram, additive mixtures of two colors lie on the straight segment connecting them. Therefore, to find a complementary color:
+
+1. Start at color $A$.
+2. Draw a line from $A$ through the chosen white point $C$.
+3. Extend it to the opposite side of the horseshoe boundary.
+4. The intersection point $D$ is the maximally saturated complementary color of $A$ relative to that white point.
+
+In the exam figure, $A$, $C$, and $D$ are collinear, with $C$ between $A$ and $D$. Hence a suitable mixture satisfies
+
+$$
+C=(1-t)A+tD,
+$$
+
+so $A$ and $D$ are complementary. They do not normally need to be mixed in equal amounts: equal proportions occur only if $C$ is exactly the midpoint of $A$ and $D$.
+
+The complementary point may lie either on the curved spectral locus or on the straight line of purples. Thus, the complement of a spectral color is not necessarily another spectral color.
+
+A revised answer for **(iv)** would be:
+
+> $C$, located approximately at $x=y=\frac13$, represents achromatic white. Since $C$ lies on the line segment connecting $A$ and $D$, an additive mixture of $A$ and $D$ in suitable proportions produces white. Therefore, $A$ and $D$ are complementary colors relative to the white point $C$.
+
+
+:::
+
+## Task 3
+
+a) explain 
+   i) ray generation
+    
+**Ray generation** is the construction of a primary viewing ray for each pixel or image sample. In the pinhole-camera model, the ray begins at the camera position *e* and passes through the corresponding point *s* on the image plane:
+
+$$
+\mathbf r(t)=\mathbf e+t(\mathbf s-\mathbf e), \qquad t\geq 0.
+$$
+
+The nearest scene intersection along this ray determines the surface visible at that pixel and is used to calculate its color.
+
+    ii) 
