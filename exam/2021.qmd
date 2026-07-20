@@ -212,3 +212,677 @@ $$
 $$
 
 The nearest intersection determines the visible surface and therefore the pixel color.
+
+### a.ii) Transmission ray
+
+A **transmission ray** is generated when a ray hits a transparent surface. It continues into the other medium, usually with a refracted direction determined by Snell’s law,
+
+$$
+\eta_i\sin\theta_i=\eta_t\sin\theta_t.
+$$
+
+It is traced recursively like a primary ray, and its returned color is added with the material’s transmission coefficient $k_t$. If total internal reflection occurs, no transmission ray is generated.
+
+
+### a.iii) 
+
+Two common termination criteria are:
+
+1. **Maximum recursion depth:** stop after a fixed number of reflection/transmission levels.
+
+2. **Negligible contribution:** track the product of reflection/transmission coefficients along the ray path and stop when its remaining contribution falls below a threshold:
+
+$$
+\prod_i k_i < \varepsilon.
+$$
+
+The first guarantees bounded runtime; the second avoids tracing rays whose effect on the final pixel color is imperceptible.
+
+
+We just answered Task 3(b), about terminating recursive ray tracing. Did you mean **Task 3(c): soft shadows and point light sources**?
+
+### b)
+
+Soft shadows are produced by an **area light source**. Several shadow rays are sent from the surface point to different sampled positions on the light:
+
+* all samples visible → fully illuminated;
+* all blocked → umbra;
+* only some visible → penumbra (soft transition).
+
+The contributions are averaged to determine the illumination.
+
+A single ideal **point light** cannot produce true soft shadows because it has no spatial extent: it is either visible or blocked, giving a hard shadow boundary. Soft shadows can only be approximated using multiple point lights, but this effectively simulates an area light.
+
+### c) 
+
+how soft shadows can be achieved? Are soft possible with point light sources? 
+
+Soft shadows are produced by an **area light source**. Several shadow rays are sent from the surface point to different sampled positions on the light:
+
+* all samples visible → fully illuminated;
+* all blocked → umbra;
+* only some visible → penumbra (soft transition).
+
+The contributions are averaged to determine the illumination.
+
+A single ideal **point light** cannot produce true soft shadows because it has no spatial extent: it is either visible or blocked, giving a hard shadow boundary. Soft shadows can only be approximated using multiple point lights, but this effectively simulates an area light.
+
+### d) 
+
+Explain the role of the BRDF in distributed ray tracing
+
+BRDF determines the proportion of reflected light from a surface toward an outgoing direction $w_o$
+w.r.t an incoming direction $w_i$. Thus, knowing the BRDF
+properties of materials ray tracing can simulated by shooting
+shooting rays to object and following them recursively.  
+
+### e)
+
+explain how ray tracing can be employed for generating depth of field?
+
+for each pixel point on the image plane $P_b$ we first determine the corresponding point on the focal plane $P_f$. 
+Then we sample various points $P_l$ on the virtual lens and
+form rays $P_l + t(P_f - P_l)$. For objects that are exactly on the focal plane each point is mapped to a single point but for points not on the focal plane rays from a single point on the image plane hit different object and their colors are avaraged, producing a blurred effect.
+
+## Task 4 - Transfomrations
+
+### a)
+
+### b) 
+
+For homogeneous coordinates, all nonzero scalar multiples represent the same projective point:
+
+$$
+(x,y,w)_H \equiv (\lambda x,\lambda y,\lambda w)_H,
+\qquad \lambda\neq0.
+$$
+
+If (w\neq0), dehomogenization gives the Euclidean point
+
+$$
+(x,y,w)_H \longmapsto
+\left(\frac{x}{w},\frac{y}{w}\right).
+$$
+
+If the last component is zero, the vector represents a direction—a point at infinity.
+
+### iv)
+
+$$
+\begin{pmatrix}
+w\0\w
+\end{pmatrix}_H
+\equiv
+\begin{pmatrix}
+1\0\1
+\end{pmatrix}_H
+\longmapsto (1,0)
+$$
+
+Therefore, it represents the Euclidean point ((1,0)), assuming (w\neq0).
+
+### v)
+
+$$
+\begin{pmatrix}
+w\w\0
+\end{pmatrix}_H
+\equiv
+\begin{pmatrix}
+1\1\0
+\end{pmatrix}_H
+$$
+
+Because the last component is zero, this represents the direction ((1,1)), or equivalently the point at infinity in the diagonal direction.
+
+### vi)
+
+Interpret it as the limiting Euclidean point ((t,t)) as (t\to\infty):
+
+$$
+\begin{pmatrix}
+t\t\1
+\end{pmatrix}_H
+\equiv
+\begin{pmatrix}
+1\1\1/t
+\end{pmatrix}_H
+\longrightarrow
+\begin{pmatrix}
+1\1\0
+\end{pmatrix}_H.
+$$
+
+Thus, it also represents the direction ((1,1)), not a finite Euclidean point.
+
+The concise exam answer is:
+
+* iv) Euclidean point ((1,0)).
+* v) Direction ((1,1)), i.e. a point at infinity.
+* vi) A point infinitely far away in direction ((1,1)), equivalent to the same direction as v).
+
+### Task 4
+
+#### c)
+
+Your answer is correct: matrix a(iii) is affine. It has the standard form
+
+$$
+M=
+\begin{pmatrix}
+A & \mathbf b\
+\mathbf 0^T & 1
+\end{pmatrix}.
+$$
+
+For the given matrix, (A=I) and (\mathbf b=(1,0,1)^T). Therefore it is a translation:
+
+$$
+(x,y,z)\longmapsto(x+1,y,z+1).
+$$
+
+### When is a homogeneous matrix non-affine?
+
+A general projective matrix has the form
+
+$$
+M=
+\begin{pmatrix}
+A & \mathbf b\
+\mathbf c^T & d
+\end{pmatrix}.
+$$
+
+Applied to ((\mathbf x,1)_H), it produces
+
+$$
+\begin{pmatrix}
+A\mathbf x+\mathbf b\
+\mathbf c^T\mathbf x+d
+\end{pmatrix}_H.
+$$
+
+After dehomogenization:
+
+$$
+\mathbf x'
+==========
+
+\frac{A\mathbf x+\mathbf b}
+{\mathbf c^T\mathbf x+d}.
+$$
+
+The transformation is non-affine when (\mathbf c\neq\mathbf0), because the new homogeneous coordinate
+
+$$
+w'=\mathbf c^T\mathbf x+d
+$$
+
+then depends on the point’s position. This produces the position-dependent division characteristic of perspective transformations.
+
+For example:
+
+$$
+\begin{pmatrix}
+1&0&0&0\
+0&1&0&0\
+0&0&1&0\
+0&0&1&1
+\end{pmatrix}
+$$
+
+gives (w'=z+1), so after dehomogenization:
+
+$$
+(x,y,z)\longmapsto
+\left(
+\frac{x}{z+1},
+\frac{y}{z+1},
+\frac{z}{z+1}
+\right),
+$$
+
+which is not affine.
+
+A lower-right entry different from (1) is **not sufficient** to make the transformation non-affine. For example,
+
+$$
+\begin{pmatrix}
+A&\mathbf b\
+\mathbf0^T&2
+\end{pmatrix}
+$$
+
+still gives
+
+$$
+\mathbf x'=\frac{A\mathbf x+\mathbf b}{2},
+$$
+
+which remains affine. Homogeneous matrices can also be multiplied by any nonzero scalar without changing the represented projective transformation.
+
+So the decisive condition is:
+
+> The matrix is affine if its bottom row is proportional to ((0,0,0,1)). It is genuinely projective/non-affine if one of the first three entries of the bottom row is nonzero.
+
+A perspective-projection matrix is an important example, but non-affine projective matrices also describe more general perspective distortions or homographies.
+
+$$
+M =
+\begin{pmatrix}
+A & \mathbf{b} \\
+\mathbf{0}^{T} & 1
+\end{pmatrix}
+$$
+
+
+### Coordinate Transformation Pipeline
+
+Yes—this is the central coordinate-transformation pipeline of rasterization. Using homogeneous column vectors, a vertex begins as
+
+$$
+\widetilde{\mathbf p}_{\text{obj}}
+==================================
+
+\begin{pmatrix}
+x\y\z\1
+\end{pmatrix}.
+$$
+
+The essential transformation is
+
+$$
+\widetilde{\mathbf p}_{\text{clip}}
+===================================
+
+PVM\widetilde{\mathbf p}_{\text{obj}},
+$$
+
+where (M) is the model matrix, (V) the view/camera matrix, and (P) the projection matrix. Matrix multiplication is evaluated from right to left.
+
+The complete flow is:
+
+> object space → world space → camera space → clip space → clipping → perspective division → normalized device coordinates → viewport transformation → window coordinates
+
+## 1. Object coordinates
+
+A model is usually created around a convenient local origin. For example, a sphere may be modelled as a unit sphere centred at ((0,0,0)), independently of where it will eventually appear in the scene.
+
+This makes models reusable: the same sphere can be placed at different positions, orientations, and sizes.
+
+## 2. Object space → world space: model matrix
+
+The model matrix (M) positions the object in the common coordinate system of the scene:
+
+$$
+\widetilde{\mathbf p}_{\text{world}}
+====================================
+
+M\widetilde{\mathbf p}_{\text{obj}}.
+$$
+
+An affine model matrix has the form
+
+$$
+M=
+\begin{pmatrix}
+& & & t_x\
+& A & & t_y\
+& & & t_z\
+0&0&0&1
+\end{pmatrix}
+=============
+
+\begin{pmatrix}
+A&\mathbf t\
+\mathbf0^T&1
+\end{pmatrix},
+$$
+
+where (A) contains rotation, scaling, and possibly shear, while (\mathbf t) contains translation.
+
+For example, a model transformation may be composed as
+
+$$
+M=TRS.
+$$
+
+It then applies, from right to left:
+
+1. scaling (S);
+2. rotation (R);
+3. translation (T).
+
+The result places all objects, lights, and other scene elements in one shared world coordinate system.
+
+---
+
+## 3. World space → camera space: view matrix
+
+In world coordinates, the camera may be anywhere and point in any direction. Projection becomes easier if we transform the scene so that the camera is:
+
+* at the origin;
+* aligned with the coordinate axes;
+* looking along the conventional viewing direction, usually negative (z).
+
+Let:
+
+* (\mathbf e) be the camera position;
+* (\mathbf u) be the camera-right direction;
+* (\mathbf v) be the camera-up direction;
+* (\mathbf w) be the backward direction, opposite to the viewing direction.
+
+The view matrix is
+
+$$
+V=
+\begin{pmatrix}
+u_x&u_y&u_z&-\mathbf u^T\mathbf e\
+v_x&v_y&v_z&-\mathbf v^T\mathbf e\
+w_x&w_y&w_z&-\mathbf w^T\mathbf e\
+0&0&0&1
+\end{pmatrix}.
+$$
+
+The transformation is
+
+$$
+\widetilde{\mathbf p}_{\text{camera}}
+=====================================
+
+V\widetilde{\mathbf p}_{\text{world}}.
+$$
+
+Conceptually, (V):
+
+1. translates the world by (-\mathbf e), placing the camera at the origin;
+2. rotates the world into the camera’s coordinate system.
+
+Instead of moving the camera through the scene, we equivalently move the entire scene into the camera’s standard coordinate system.
+
+---
+
+## 4. Camera space → clip space: projection matrix
+
+The projection matrix (P) transforms the camera’s view volume into a canonical homogeneous clip volume:
+
+$$
+\widetilde{\mathbf p}_{\text{clip}}
+===================================
+
+# P\widetilde{\mathbf p}_{\text{camera}}
+
+\begin{pmatrix}
+x_c\y_c\z_c\w_c
+\end{pmatrix}.
+$$
+
+These are homogeneous clip coordinates. They have not yet been divided by (w_c).
+
+The projection matrix serves two purposes:
+
+* it prepares the perspective or orthographic projection;
+* it maps the near and far clipping planes into a standard depth range.
+
+### Perspective projection
+
+Using a common OpenGL-style convention—camera looking along negative (z), positive near and far distances (N) and (F)—the perspective matrix is
+
+$$
+P_{\mathrm{persp}}
+==================
+
+\begin{pmatrix}
+\dfrac{2N}{r-l}&0&\dfrac{r+l}{r-l}&0\
+0&\dfrac{2N}{t-b}&\dfrac{t+b}{t-b}&0\
+0&0&-\dfrac{F+N}{F-N}&-\dfrac{2FN}{F-N}\
+0&0&-1&0
+\end{pmatrix}.
+$$
+
+Here (l,r,b,t) describe the left, right, bottom, and top boundaries of the near plane.
+
+The last row causes
+
+$$
+w_c=-z_{\text{camera}}.
+$$
+
+Consequently, the later division by (w_c) divides (x) and (y) by depth. This creates perspective foreshortening: distant objects appear smaller.
+
+For a symmetric frustum, the matrix is often written using the vertical field of view (\varphi) and aspect ratio (a):
+
+$$
+P_{\mathrm{persp}}
+==================
+
+\begin{pmatrix}
+\dfrac{q}{a}&0&0&0\
+0&q&0&0\
+0&0&-\dfrac{F+N}{F-N}&-\dfrac{2FN}{F-N}\
+0&0&-1&0
+\end{pmatrix},
+\qquad
+q=\frac{1}{\tan(\varphi/2)}.
+$$
+
+### Orthographic projection
+
+An orthographic view volume is a cuboid. A corresponding matrix is
+
+$$
+P_{\mathrm{ortho}}
+==================
+
+\begin{pmatrix}
+\dfrac{2}{r-l}&0&0&-\dfrac{r+l}{r-l}\
+0&\dfrac{2}{t-b}&0&-\dfrac{t+b}{t-b}\
+0&0&-\dfrac{2}{F-N}&-\dfrac{F+N}{F-N}\
+0&0&0&1
+\end{pmatrix}.
+$$
+
+Here (w_c=1), so the later perspective division has no visible effect. Object size therefore does not decrease with distance.
+
+The exact signs and depth range vary between graphics APIs, but the function of the matrix remains the same.
+
+---
+
+## 5. Clipping in homogeneous clip space
+
+Clipping is performed after projection but before division by (w_c).
+
+For a canonical clip volume, a point is inside when
+
+$$
+-w_c\leq x_c\leq w_c,
+$$
+
+$$
+-w_c\leq y_c\leq w_c,
+$$
+
+$$
+-w_c\leq z_c\leq w_c.
+$$
+
+Primitives completely outside are discarded. Primitives crossing a boundary are cut, producing new vertices.
+
+Clipping is not simply another matrix multiplication. It is a geometric operation performed against the six clip planes.
+
+Performing it before perspective division preserves information about which side of the camera and clipping planes a point lies on.
+
+---
+
+## 6. Perspective division: clip space → NDC
+
+After clipping, the homogeneous coordinates are dehomogenized:
+
+$$
+\mathbf p_{\mathrm{NDC}}
+========================
+
+\begin{pmatrix}
+x_c/w_c\
+y_c/w_c\
+z_c/w_c
+\end{pmatrix}
+=============
+
+\begin{pmatrix}
+x_{\mathrm{NDC}}\
+y_{\mathrm{NDC}}\
+z_{\mathrm{NDC}}
+\end{pmatrix}.
+$$
+
+This operation is called:
+
+* perspective division;
+* dehomogenization;
+* normalization transformation.
+
+It is not a matrix transformation because division by the point-dependent value (w_c) is nonlinear.
+
+After division, the visible view frustum has become the normalized device coordinate cube:
+
+$$
+(x_{\mathrm{NDC}},y_{\mathrm{NDC}},z_{\mathrm{NDC}})
+\in[-1,1]^3.
+$$
+
+For perspective projection, this is the step that actually produces the familiar effect
+
+$$
+x_{\mathrm{NDC}}\sim\frac{x}{z},
+\qquad
+y_{\mathrm{NDC}}\sim\frac{y}{z}.
+$$
+
+The projection matrix prepares the necessary (w_c); perspective division realizes the foreshortening.
+
+---
+
+## 7. NDC or image space
+
+Normalized device coordinates provide a resolution-independent representation:
+
+* (x=-1): left edge;
+* (x=1): right edge;
+* (y=-1): bottom edge;
+* (y=1): top edge;
+* (z): normalized depth.
+
+The slides sometimes use **image space** broadly for coordinates after perspective division. More precisely, this stage is NDC; actual screen coordinates follow after the viewport transformation.
+
+Because every camera frustum is normalized to the same cube, all subsequent rasterization operations can use a standard coordinate range.
+
+---
+
+## 8. NDC → window/pixel coordinates: viewport matrix
+
+Suppose the viewport has:
+
+* lower-left corner ((x_0,y_0));
+* width (W);
+* height (H).
+
+Then
+
+$$
+x_{\mathrm{win}}
+================
+
+x_0+\frac{W}{2}(x_{\mathrm{NDC}}+1),
+$$
+
+$$
+y_{\mathrm{win}}
+================
+
+y_0+\frac{H}{2}(y_{\mathrm{NDC}}+1).
+$$
+
+If depth is mapped from ([-1,1]) to ([0,1]),
+
+$$
+z_{\mathrm{win}}
+================
+
+\frac{z_{\mathrm{NDC}}+1}{2}.
+$$
+
+This can be represented by the affine viewport matrix
+
+$$
+V_{\mathrm{port}}
+=================
+
+\begin{pmatrix}
+W/2&0&0&x_0+W/2\
+0&H/2&0&y_0+H/2\
+0&0&1/2&1/2\
+0&0&0&1
+\end{pmatrix}.
+$$
+
+Thus,
+
+$$
+\widetilde{\mathbf p}_{\mathrm{window}}
+=======================================
+
+V_{\mathrm{port}}
+\widetilde{\mathbf p}_{\mathrm{NDC}}.
+$$
+
+For image formats whose origin is at the top-left, the (y)-mapping is usually reversed.
+
+Window coordinates are still continuous coordinates. Rasterization then determines which discrete pixel samples are covered by the projected triangle and generates fragments for those pixels.
+
+## Complete summary
+
+$$
+\boxed{
+\widetilde{\mathbf p}_{\mathrm{clip}}
+=====================================
+
+PVM\widetilde{\mathbf p}_{\mathrm{object}}
+}
+$$
+
+followed by
+
+$$
+\boxed{
+\mathbf p_{\mathrm{NDC}}
+========================
+
+\frac{1}{w_c}
+\begin{pmatrix}
+x_c\y_c\z_c
+\end{pmatrix}
+}
+$$
+
+and finally
+
+$$
+\boxed{
+\widetilde{\mathbf p}_{\mathrm{window}}
+=======================================
+
+V_{\mathrm{port}}
+\widetilde{\mathbf p}_{\mathrm{NDC}}.
+}
+$$
+
+The motivation can be remembered as:
+
+* (M): place each object in the scene;
+* (V): express the scene relative to the camera;
+* (P): map the camera’s view volume into canonical clip coordinates;
+* clipping: remove geometry outside the view;
+* division by (w): produce perspective and NDC;
+* viewport transformation: map NDC to the actual screen;
+* rasterization: determine the covered pixels.
